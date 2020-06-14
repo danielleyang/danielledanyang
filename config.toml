@@ -1,4 +1,4 @@
-baseurl = "http://www.example.com" # Hostname (and path) to the root.
+baseurl = "https://thirsty-sinoussi-cf142d.netlify.app" # Hostname (and path) to the root.
 title = "Danielle Chen" # Site title.
 theme = "coder-portfolio" # Set the theme.
 languagecode = "en" # The site’s language code used to generate RSS.
@@ -20,11 +20,11 @@ disqusShortname = "daniellechen" # Enable or disable Disqus.
     keywords = "Data Analyst, Chemist, Foodie, Data Scientist" # Site keywords.
     avatarurl = "images/avatar.jpg" # Contain the path of the optionnal avatar in the static folder.
     privateinner = "I was also a chemist for 6 years. My favorite street food is Jian Bing Guo Zi :)"
-    
+
     footercontent = "Thanks for checking me out!" # Add footer content
     fixedbarContent = "Do you want to know more about me?→" # Add fixedbar content
     fixedbarContentAfter = "Thank You! Please share it if you like it→" # Add fixedbar content after click
-    
+
     # Whether you want to hide copyright and credits in the footer.
     hideCredits = false
     hideCopyright = false
@@ -82,4 +82,3 @@ disqusShortname = "daniellechen" # Enable or disable Disqus.
     name = "Posts"
     weight = 3
     url = "posts"
-        
