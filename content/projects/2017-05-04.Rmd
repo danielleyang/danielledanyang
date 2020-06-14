@@ -9,11 +9,10 @@ output:
     number_sections: false
     toc: true
 ---
-
-
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 ```
+
 
 ```{r, include = FALSE}
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
@@ -31,7 +30,7 @@ Airbnb enables people to lease or rent short-term lodging including vacation ren
 There are 3 important datasets provided by Airbnb: training, test and session datasets. In the training dataset, there are <span style="color:#fd5c63;">213451 </span>unique user ids; In the test dataset, there are <span style="color:#fd5c63;">62096</span> unique user ids; In thie sessions dataset, there are <span style="color:#fd5c63;">135484</span> unique user ids; 71815 (34.58%) users in the training datasets have data in the session; 61668 (99.31%) users in the test datasets have data in the session. You can see it from the Venn diagram shown below. There are no duplicated IDs in test and training datasets. The labels for the testing data is unknown. The performance of the model on test dataset can only be assessed through kaggle scoring metrics. For our learning purpose, we decide to <span style="color:#fd5c63;">use training dataset only</span> in this project.
 
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/0.png")
+knitr::include_graphics("/images/airbnb/0.png", error = FALSE)
 ```
 
 ### Tools and Packages used
@@ -47,39 +46,39 @@ There are 73815 users in both session and training datasets. Now, let us explore
 ### Missing Variables
 A lots of values are recorded as --unknown--. Let we replace them with NaN. A lot of users gender, age and first_browser are missing. We will impulate it later in the feature engineering part.
 ```{r echo = FALSE, out.width = "35%", fig.align = "center"}
-knitr::include_graphics("airbnb/1.png")
+knitr::include_graphics("/images/airbnb/1.png", error = FALSE)
 ```
 
 ### Destination Country Distribution
 Most of the users did not book, thus they are marked as NDF(None Destination Found). NDF and US are two dominant categories. The Y distribution is super imbalanced.
 ```{r echo = FALSE, out.width = "25%", fig.align = "center"}
-knitr::include_graphics("airbnb/2.png")
+knitr::include_graphics("/images/airbnb/2.png", error = FALSE)
 ```
 
 ### Gender
 Well balnaced between male and female with female slightly more.
 
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/3.png")
+knitr::include_graphics("/images/airbnb/3.png", error = FALSE)
 ```
 
 We do not find significant difference between two genders for each destination.
 
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/4.png")
+knitr::include_graphics("/images/airbnb/4.png", error = FALSE)
 ```
 
 ### Age
 For the age, there are some extreme values. For example, 2 of them are less than 10 and 721 of them are greater than 100 years old. When we draw the age distribution plot, we would omit them. Most of the users are below 40 years old.
 
 ```{r echo = FALSE, out.width = "90%", fig.align = "center"}
-knitr::include_graphics("airbnb/5.png")
+knitr::include_graphics("/images/airbnb/5.png", error = FALSE)
 ```
 
 For US, young people prefer to book US houses compared with older group. However, the difference is not very obvious.
 
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/6.png")
+knitr::include_graphics("/images/airbnb/6.png", error = FALSE)
 ```
 
 ### Sign Up Method
@@ -89,37 +88,37 @@ knitr::include_graphics("airbnb/6.png")
 
 The users use basic sign up method has a little bit higher probability to book the houses. The below shows a list of affilate providers.
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/7.png")
+knitr::include_graphics("/images/airbnb/7.png", error = FALSE)
 ```
 
 affiliate provider
 ```{r echo = FALSE, out.width = "25%", fig.align = "center"}
-knitr::include_graphics("airbnb/8.png")
+knitr::include_graphics("/images/airbnb/8.png", error = FALSE)
 ```
 
 ### Account Create Month
 The number of new accounts keep growing and we do not find obvious seasonal pattern, although there is a littble drop down from Jan to Feb.
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/9.png")
+knitr::include_graphics("/images/airbnb/9.png", error = FALSE)
 ```
 
 ### Sessions Related
 There are 332 values for action. The most common 10 are shown below.
 
 ```{r echo = FALSE, out.width = "35%", fig.align = "center"}
-knitr::include_graphics("airbnb/10.png")
+knitr::include_graphics("/images/airbnb/10.png", error = FALSE)
 ```
 
 The most common action type is
 
 ```{r echo = FALSE, out.width = "25%", fig.align = "center"}
-knitr::include_graphics("airbnb/11.png")
+knitr::include_graphics("/images/airbnb/11.png", error = FALSE)
 ```
 
 There are 129 values for action details. The most common 10 are shown below.
 
 ```{r echo = FALSE, out.width = "40%", fig.align = "center"}
-knitr::include_graphics("airbnb/12.png")
+knitr::include_graphics("/images/airbnb/12.png", error = FALSE)
 ```
 
 We need to clean the nan and -unknown- data later.
@@ -131,7 +130,7 @@ In the feature engineering part, not only training dataset but also testing data
 In this session dataset, it has 6 variables, including user id, action (lookup, search results etc), action type (the way they execute that action), action detail(what exactly they lookup, are they viewing results or editing etc), device type (what device they use when they do this action) and secs elapsed (the time they stay in this session). Every time, when users logged in to their account and make actions, their informaiton were recorded. Therefore, each user has more than 1 record. For example, the table shows below. 
 
 ```{r echo = FALSE, out.width = "70%", fig.align = "center"}
-knitr::include_graphics("airbnb/13.png")
+knitr::include_graphics("/images/airbnb/13.png", error = FALSE)
 ```
 
 In this dataset, there are 365 action values. We group by the action and count each action's frequency. The average number of count is 29214. We decide to change <span style="color:#fd5c63;">action values with less than 100 frequency to 'OTHER'.</span> The resulted dataset has 230 action values. 
@@ -152,20 +151,20 @@ After transformation, here is a list of columns decriptions and an example of th
 * c_437 to c_456: sections elapsed sum + mean + std + median + total mean + 15 time intervals count
 
 ```{r echo = FALSE, out.width = "90%", fig.align = "center"}
-knitr::include_graphics("airbnb/14.png")
+knitr::include_graphics("/images/airbnb/14.png", error = FALSE)
 ```
 
 ### Train + Test Dataset 
 After dropping the destination variable in the training dataset, we combine the train and test set. There are 275547 records. Within them, 116866 users' age are missing. 6085 first_affilate_tracked is missing. We also take a look at the NaN or NAN values. In order to process the dataset easily, <span style="color:#fd5c63;"> we replace all missing or unknown values with -1</span>. After this step, we can see that the variables which contains missing values are gender, age, language, first_affiliate_tracked, and first_brower.
 
 ```{r echo = FALSE, out.width = "40%", fig.align = "center"}
-knitr::include_graphics("airbnb/15.png")
+knitr::include_graphics("/images/airbnb/15.png", error = FALSE)
 ```
 
 For <span style="color:#fd5c63;">gender</span>, there are 47% missing values. It is difficult to impute gender. The only way we can do is to random guess. Therefore, we decide to leave gender like this.
 
 ```{r echo = FALSE, out.width = "60%", fig.align = "center"}
-knitr::include_graphics("airbnb/16.png")
+knitr::include_graphics("/images/airbnb/16.png", error = FALSE)
 ```
 
 For <span style="color:#fd5c63;">age</span>, if the age is between 14 to 99, we think it is reasonable. Otherwise, if the age is between 1900 to 2000, the user may mistakenly input their birth year into the age. Therefore, we substract that year from 2014. If the age is between 0 and 14, we decide to use 14 as their age. If the age is between 2010 to 2016, the user probably input the current year. Then, we decide to use -1 as their age. 
@@ -175,19 +174,19 @@ After that, we find may people aged at 105. It is very strange. Therefore, we se
 For <span style="color:#fd5c63;">language</span>, there is only one person's langauge is unknown. We decide to use english as his/her language since 96% users speak English. After replacing the language to 'en', the frequency list of language is shown below.
 
 ```{r echo = FALSE, out.width = "25%", fig.align = "center"}
-knitr::include_graphics("airbnb/17.png")
+knitr::include_graphics("/images/airbnb/17.png", error = FALSE)
 ```
 
 For <span style="color:#fd5c63;">first_affiliate_tracked</span> variable, we decide to categorize all the <span style="color:#fd5c63;">unknown to untracked category</span>. The frequency list is shown below.
 
 ```{r echo = FALSE, out.width = "35%", fig.align = "center"}
-knitr::include_graphics("airbnb/18.png")
+knitr::include_graphics("/images/airbnb/18.png", error = FALSE)
 ```
 
 For <span style="color:#fd5c63;">first_brower</span> variable, we decide to first combine the values with low frequency (<100> to Other. Then, we decide to <span style="color:#fd5c63;">categorize all the unknown to other</span> as well. The frequency list is shown below.
 
 ```{r echo = FALSE, out.width = "35%", fig.align = "center"}
-knitr::include_graphics("airbnb/19.png")
+knitr::include_graphics("/images/airbnb/19.png", error = FALSE)
 ```
 
 After that, we extract more information from user account created date. We find out the year, month, day and calculate in which week they create and on which weekday they create. The weekday information is coded using one-hot-encoding. The reason of doing one-hot-encoding is that many machine learning algorithems (such as linear models, svm, knn etc) cannot handle categorical data. There are two common ways to transform the categorical data. One is to factorize. The other one is to use one-hot-encoding. Factorizing does not help since it does not change the nature of the data. We just use a number to replace the character values. Also, it brings a problem since it imparts an ordinal property to the variable. As this is ordinal characteristic is usually not desired. However, using one-hot-encoding can proper representation of the distinct elements of the variable. It also make easy to fine tune the parameters.
@@ -214,7 +213,7 @@ XGBoost (eXtreme Gradient Boosting) is an advanced implementation of gradient bo
 At the start, the initial values of the parameters are set up in order to find out the best iteration. The initial values includes: max_depth = 5; learning_rate = 0.1; n_estimators = 10000; objective = multi:softprob (The result contains predicted probability of each data point belonging to each class); random_state = 1 (in case we want to repeat the process); eval_metric = mlogloss (multiclass negative log-likelihood). From this model, the best iteration is 111. For tuning boosting parameters, the learning rate = 0.1, n_estimators = 111, objective = multi:softprob, eval_metric = mlogloss are used. Booster parameters tuned in this models are shown below. The parameters are tuned based on the mlogloss metric and using 5 fold cross validation. <span style="color:#fd5c63;"> The best validation accuracy is 0.708. </span>
 
 ```{r echo = FALSE, out.width = "90%", fig.align = "center"}
-knitr::include_graphics("airbnb/20.png")
+knitr::include_graphics("/images/airbnb/20.png", error = FALSE)
 ```
 
 ### Model Ensemble 
@@ -226,27 +225,27 @@ We use majority voting to determine final result. We set weight according to acc
 Area under the curve (AUC) value describes the overall performace of a classifier. Based on the area under the curve values, these 3 models plus the ensembled model classify the destination country NDF better than they do on US. XGBoost performs slightly better than the ensembled model. Random Forest performs almost as good as the ensembled method. The reason of this result is because in the ensemble process. We use a heavier weight on xgboost. This dataset is imbalanced. The major country is US and NDF. It is easier to predict the county as US and NDF. It is difficult to classify other countries. Compared to random forest and svm, xgboost does a better job in predicting this minority. Therefore, in the ensemble process, xgboost's vote is more importance. That is the reason why ensemble model is close to xgboost.
 
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/21.png")
+knitr::include_graphics("/images/airbnb/21.png", error = FALSE)
 ```
 
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/22.png")
+knitr::include_graphics("/images/airbnb/22.png", error = FALSE)
 ```
 
 #### PR
 Presion is the (true positive)/(true positive + false postive). And recall is (true positive)/(true positve + false negative). The precision and recall of NDF category is much better than US category. Overall, the result is similar as ROC curve. XGBoost does better than the other 3 models. 
 
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/23.png")
+knitr::include_graphics("/images/airbnb/23.png", error = FALSE)
 ```
 
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/24.png")
+knitr::include_graphics("/images/airbnb/24.png", error = FALSE)
 ```
 
 #### Confusion Matrix
 ```{r echo = FALSE, out.width = "50%", fig.align = "center"}
-knitr::include_graphics("airbnb/25.png")
+knitr::include_graphics("/images/airbnb/25.png", error = FALSE)
 ```
 
 ## ✈ Conclusion
