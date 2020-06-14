@@ -1,0 +1,413 @@
+---
+title: "Survival Analysis of Randomized Placebo-controlled Trial of HIV-1 disease"
+author: "Danielle Chen"
+date: 2017-01-04T17:44:03-07:00
+categories: ["R"]
+tags: ['Survival','R','AIDs']
+output:
+  html_document:
+    number_sections: false
+    toc: true
+---
+
+
+## 1.TL;DR
+In this analysis, survival Cox-ph model shows that portential risk factors for HIV-1 includes whether or not patients receive previous treatments (tx), patients' ability to tolerate chemotherapy (karnof) and patient's baseline cd4 counts (cd4). Exploratory analysis on mean, median survival time for HIV patients and non patients were compared before performing the model. This is the analysis I did when I took Survival Analysis course (BST 222) at UC Davis.
+
+## 2.Introduction
+HIV (human immunodeficiency virus) is a virus which attacks human immune system. People can get infected through the transfer of blood, breast milk, etc. Between the two types of HIV, HIV-1 is more virulent, which can cause infections globally. Zidovudine was the first drug approved by FDA for treatment of HIV infection. However, the survival benefit of the zidovudine-monotherapy only lasts for several months. In the late 1990s, people found that HIV- protease inhibitor could prevent the maturation of virions. Therefore, researchers started to try combination therapy of three drugs which includes a potent HIV-protease inhibitor indinavir (IDV) and two nucleoside analogues lamivudine (3TC) and zidovudine (ZDV) or stravudine (d4T). The goal of this analysis is to build a Cox-ph model and to compare the survival time with or without IDV using the AIDs clinical trial group study 320 data. The descriptions of the data are in Appendix I. The data is a record of 1151 HIV-I patients.
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+library(readxl)
+library(survival)
+library(MASS)
+library(flexsurv)
+library(survMisc)
+library(formattable)
+library(zoo)
+library(emplik)
+AIDs = read_excel("actg320.xls")
+```
+
+## 3.Methods and Results
+For knowing more about the survival distributions, survival function and hazard function were computed. The data contains 1151 patients who were randomly received one either treatment with IDV or treatment without IDV. The event of interest in this study was patients whose disease progressed to AIDS or death. There are 1055 patients were censored (red dot in Figure \@ref(fig:figure1)) and 96 patients were non-censored.
+
+```{r figure1,fig.cap='An overview of our data.', tidy=FALSE, echo=FALSE, fig.width = 8, fig.height = 5, fig.align='center'}
+#table(AIDs$censor) # 1055 has censored # 96 has not been censored 
+nr <- 50
+plot(c(0, AIDs$time_d[1]), c(1, 1), type = "l", ylim = c(0, nr + 1),
+     xlim = c(0, max(AIDs$time_d[1:nr]) + 10), ylab = "nr",
+     xlab = "Survival time")
+for(i in 2:nr)
+  lines(c(0,AIDs$time_d[i]), c(i, i))
+for(i in 1:nr) {
+  if(AIDs$censor[i] == 0)
+    points(AIDs$time_d[i], i, col = "red", pch = 20) #censored
+  if(AIDs$censor[i] == 1)
+    points(AIDs$time_d[i], i)
+}
+```
+
+### a. Survival function
+There are two ways to calculate the survival functions. One is to use non-parametric estimator Kaplan-Meier. Another one is to make parametric assumptions and calculate the survival function based on the assumptions, ex: event time follows exponential, Weibull, Gamma, etc.
+<br>
+
+#### a1. Kaplan-Meier (nonparametric)
+Figure \@ref(fig:figure2) top left shows the estimated survival function with 95% confidence interval band for 1151 patients. Figure \@ref(fig:figure2) top right shows the estimated survival functions separately for treatment group (with IDV) and control group (without IDV). We can see that the proportion surviving of treatment group is longer than the control group. Figure \@ref(fig:figure2) bottom left shows the estimated survival functions for sex. The two survival functions cross each other, which implies their hazards functions are not proportional. Overall, the number of females survive are larger than male. Figure \@ref(fig:figure2) bottom right shows the estimated survival for CD4 groups. We can see that 95% of people with more CD4 cell counts at screening still survive at the end of study. That is because CD4 is an essential part of the human immune system. People who have more CD4 have stronger immune system before doing any treatments. After treatments, the CD4 cell count for all patients increase. So the patients with more CD4 still have stronger defense against virus.
+
+```{r figure2,fig.cap='The Kaplan-Meier estimate of survival functions for different groups', tidy=FALSE, echo=FALSE, fig.width = 10, fig.height = 8, fig.align='center'}
+### a1. Kaplan-Meier
+par(mfrow = c(2,2))
+S1 = Surv(AIDs$time, AIDs$censor)
+fit1 = survfit(S1~1)
+#summary(fit1)
+plot(fit1,xlab="t",ylab=expression(hat(S)*"(t)"), main=expression(paste("Kaplan-Meier Estimate ", hat(S))),ylim = c(0.8,1.0))
+legend(x="bottomright",40, cex = 0.40,"95% Kaplan-Meier CI", lty=2)
+
+S2 = survfit(Surv(AIDs$time, AIDs$censor) ~ AIDs$tx, type="kaplan-meier", conf.type="log", data = AIDs)
+#summary(KM)
+plot(S2, main=expression(paste("Kaplan-Meier Estimate ", hat(S)[g](t), " for treatment groups")),
+     xlab="t", ylab=expression(hat(S)*"(t)"), lwd=2, col=1:2, ylim = c(0.8,1.0))
+legend(x="bottomleft", col=1:2, lwd=2,c("Control group, n = 577", "Treatment includes IDV, n = 574"))
+
+S3 = survfit(Surv(AIDs$time, AIDs$censor) ~ AIDs$sex, type="kaplan-meier", conf.type="log", data = AIDs)
+#summary(KM)
+plot(S3, main=expression(paste("Kaplan-Meier Estimate ", hat(S)[g](t), " for SEX groups")),
+     xlab="t", ylab=expression(hat(S)*"(t)"), lwd=2, col=1:2, ylim = c(0.8,1.0))
+legend(x="bottomleft", col=1:2, lwd=2, c("Male, n = 191", "Female, n = 200"))
+
+S4 = survfit(Surv(AIDs$time, AIDs$censor) ~ AIDs$strat2, type="kaplan-meier", conf.type="log", data = AIDs)
+#summary(KM)
+plot(S4, main=expression(paste("Kaplan-Meier Estimate ", hat(S)[g](t), " for CD4 groups")),
+     xlab="t", ylab=expression(hat(S)*"(t)"), lwd=2, col=1:2, ylim = c(0.8,1.0))
+legend(x="bottomleft", col=1:2, lwd=2,c("CD4 <= 50, n = 439", "CD4 > 50, n = 712"))
+
+```
+
+<br>
+
+#### a2. Assume exponential distribution, a parametric approach
+If we assume the event time follows exponential distribution, the hazard function and survival function are shown as follows.
+```{r figure3,fig.cap='The fitted survival functions for the entire population', tidy=FALSE, echo=FALSE, fig.width = 6, fig.height = 4.5, fig.align='center'}
+# Estimate of lambda and its variance built-in function
+EXP_fit = survreg(Surv(AIDs$time, AIDs$censor)~1,data = AIDs, dist = "exponential")
+#summary(EXP_fit)
+lambda = exp(-coef(EXP_fit))
+#lambda
+# Estimate of lambda and its variance by equation 
+#sum(AIDs$censor)/sum(AIDs$time)
+# variance of lambda
+#sum(AIDs$censor)/(sum(AIDs$time))^2
+# plot expoential
+EXP_fit  <- flexsurvreg(Surv(AIDs$time, AIDs$censor)~1,dist = "exponential",data = AIDs)
+plot(EXP_fit,ylim = c(0.8,1.0),xlab="t",ylab=expression(hat(S)*"(t)"))
+legend("bottomleft",legend=c("KM Plot","Fitted"), lty=c(1,1),col=c("black","red"))
+
+# Estimates of Survival Functions and its variance
+EXP_fit_sur = exp(-0.0003623448*AIDs$time) #Estimate survival functions
+EXP_fit_var = (AIDs$time)^2 * exp(-2*0.0003623448*AIDs$time)*0.0003623448^2/sum(AIDs$censor)
+A = cbind(AIDs$time,EXP_fit_sur,EXP_fit_var)
+A = as.data.frame(A)
+colnames(A) = c("Time","Survival","Variance")
+
+```
+
+<br>
+
+### b. Mean and Median Survival
+The mean survival is the expected value of survival time. The median survival time is defined as the time survival probably is 0.5. The expected mean survival time calculate using Kaplan Meier surviving function is 340.03 with 2.38 standard error. Since the minimum of survival probability is 0.9, it is not possible to reach 0.5 based on our data (Figure 1 topleft). The estimation for median is not available.
+
+```{r}
+S1 = Surv(AIDs$time, AIDs$censor)
+fit1 = survfit(Surv(AIDs$time, AIDs$censor)~1, conf.type = "log-log")
+print(fit1, print.rmean=TRUE)
+```
+
+```{r eval=FALSE, include=FALSE}
+##### b2. MLE mean and median(parametric)
+# Estimates of mean
+1/0.0003623448
+# Variance of mean
+(sum(AIDs$time))^2/(sum(AIDs$censor))^3
+1/(0.0003623448^2*sum(AIDs$censor))
+
+# Estimate of median
+-log(0.5)/0.0003623448
+# Variance
+(-log(0.5))^2/((0.0003623448)^2*sum(AIDs$censor))
+```
+
+```{r, echo=FALSE, include=FALSE}
+##### c1.Accumulative Hazard Functions, Nelson-Estimate(non-parametric)
+fit1 <- survfit(Surv(AIDs$time, AIDs$censor) ~ 1,  type="kaplan-meier", conf.type="log", data = AIDs)
+plot(fit1, main=expression(paste("Kaplan Meier Estimate ", hat(Lambda)(t))),
+     xlab="t", ylab="Cumulative Hazard", fun="cumhaz", lwd=2)
+legend(x="bottomright",40,"95% CI", lty=2)
+
+S2 = survfit(Surv(AIDs$time, AIDs$censor) ~ AIDs$tx, type="kaplan-meier", conf.type="log", data = AIDs)
+#summary(KM)
+plot(S2, main=expression(paste("Kaplan-Meier Estimate ", hat(Lambda)(t)), "for treatment groups"),
+     xlab="t", ylab="Cumulative Hazard", fun="cumhaz",lwd=2, col=1:2)
+legend(x="bottomright", col=1:2, lwd=2,c("Control group, n = 577", "Treatment includes IDV, n = 574"))
+```
+
+
+```{r eval=FALSE, include=FALSE}
+##### c2.MLE Accumulative Hazard Functions (parametric)
+# Estimates of Survival Functions and its variance
+EXP_fit_cumhaz = 0.0003623448*AIDs$time #Estimate accumulative hazard functions
+EXP_fit_cumhaz_var = (AIDs$time) * 1.367643e-09 #Estimate accumulative hazard variance
+
+B = cbind(AIDs$time,EXP_fit_cumhaz,EXP_fit_cumhaz_var)
+B = as.data.frame(B)
+colnames(B) = c("Time","Accumulative Hazard","Variance")
+
+# plot expoential @！！！！！！！
+# cols <- rainbow_hcl(3)
+
+```
+
+<br>
+
+### c. Compare two models
+From Figure \@ref(fig:figure4), we can see there is a difference between treatment group (with IDX) and the control group (without IDX). However, we should compute a test statistic from the observed data to see if they are statistically different.
+
+```{r figure4,fig.cap='The Nelson-Estimate for accumulative hazard based on two treatments', tidy=FALSE, echo=FALSE, fig.align='center'}
+S2 = survfit(Surv(AIDs$time, AIDs$censor) ~ AIDs$tx, type="kaplan-meier", conf.type="log", data = AIDs)
+#summary(KM)
+plot(S2, main=expression(paste("Kaplan-Meier Estimate ", hat(Lambda)(t)), "for treatment groups"),
+     xlab="t", ylab="Cumulative Hazard", fun="cumhaz",lwd=2, col=1:2)
+legend(x="bottomright", col=1:2, lwd=2,c("Control group, n = 577", "Treatment includes IDV, n = 574"))
+
+```
+
+The sum of those chi-square statistics is 24.47421. And this follows $\chi^2_7$. The critical value for
+$\chi^2_7(0.95) = 14.06714$. The p-value is 0.00094. That means we should reject the null hypothesis and conclude that there is significant difference in survival function/accumulative hazard function between control and treatment group at 0.05 significance level.
+
+```{r, echo=FALSE}
+Control = AIDs[AIDs$tx == 0,]
+Treatment = AIDs[AIDs$tx == 1,]
+test_time = c(100,120,150,200,235,260,400)
+#Calculate nelson estimate for 2 sets; each set, I have 7 time points
+cumulative_hazard_rate = function(test_time, di, Xi){
+  num_time_point = c(length(Xi):1)
+  xici = cbind(Xi,di)
+  xici_order = xici[order(xici[,1]),]
+  hazard = xici_order[,2]/num_time_point
+  cumulative_haz = cumsum(hazard)
+  index = findInterval(test_time,xici_order[,1])
+  hazard_estimate = cumulative_haz[index]
+  return(hazard_estimate)
+}
+
+# Call the function to calculate neison estimate
+Nelson_Control = cumulative_hazard_rate(test_time,Control$censor,Control$time)
+#Nelson_Control
+Nelson_Treatment = cumulative_hazard_rate(test_time,Treatment$censor,Treatment$time)
+#Nelson_Treatment
+
+# Calculate the difference between two points in each set
+Nelson_Diff_C = diff(c(0,Nelson_Control))
+Nelson_Diff_T = diff(c(0,Nelson_Treatment))
+# Calculate the pair-wise difference for 7 time points
+Nelson_Diff =  Nelson_Diff_C-Nelson_Diff_T
+#Nelson_Diff
+
+# Calculate the variance
+variance = function(test_time, di, Xi){
+  num_time_point = c(length(Xi):1)
+  xici = cbind(Xi,di)
+  xici_order = xici[order(xici[,1]),]
+  variance = xici_order[,2]/(num_time_point*(num_time_point-1))
+  variance[length(Xi)] = 0
+  cumulative_variance = cumsum(variance)
+  index = findInterval(test_time,xici_order[,1])
+  variance_estimate = cumulative_variance[index]
+  return(variance_estimate)
+}
+Nelson_Diff_C_Var = variance(test_time,Control$censor,Control$time)
+#Nelson_Diff_C_Var
+Nelson_Diff_T_Var = variance(test_time,Treatment$censor,Treatment$time)
+#Nelson_Diff_T_Var
+Nelson_Diff_Var = Nelson_Diff_C_Var + Nelson_Diff_T_Var
+Nelson_Diff_Var_sum = cumsum(Nelson_Diff_Var)
+
+# Calculate test statistics
+chi_square = (Nelson_Diff)^2/Nelson_Diff_Var_sum
+test_statistics = sum((Nelson_Diff)^2/Nelson_Diff_Var_sum) # 24.47421
+#qchisq(0.95,7) #14.06714
+#1-pchisq(test_statistics,7) # 0.0009400111
+
+# For show example
+C = rbind(Nelson_Diff,Nelson_Diff_Var_sum,chi_square)
+colnames(C) = test_time
+rownames(C) = c("Nelson_Diff","Variance","Chi-square statistics")
+as.htmlwidget(formattable(as.data.frame(round(C,4))))
+```
+
+```{r eval=FALSE, include=FALSE}
+##### d2. Gehan, Mental Tarone-Ware
+fit = survfit(Surv(AIDs$time, AIDs$censor) ~ AIDs$tx)
+comp(ten(fit))
+fit1 = survfit(Surv(AIDs$time, AIDs$censor) ~ AIDs$sex)
+comp(ten(fit1))
+fit2 = survfit(Surv(AIDs$time, AIDs$censor) ~ AIDs$strat2)
+comp(ten(fit2))
+```
+
+<br>
+
+### d. COXPH model
+In order to learn more of the potential risk factors for HIV-1, an initial Cox proportional hazards model is built.
+
+A description of each variable, including description of some key values, is given below.
+
+| Variable Name | Description                       |Value                                              
+|---------------|-----------------------------------|---------------------------------------------------
+| Time          | Time to AIDS diagnosis or death   | Days                                              
+| Censor        | Event indicator for AIDS defining <br/>diagnosis or death | 1 = AIDS defining diagnosis or death <br/> 0 = Otherwise
+| Tx            | Treatment indicator <br/>  diagnosis or death   | 1 = Treatment includes IDV  <br/>  0 = Control group (treatment regime without IDV)                     
+| Strat2        |CD4 stratum at screening           | 1 = CD4 > 50 <br/> 0 = CD4 <= 50
+| Raceth        | Race/Ethnicity	                  | 1 = White Non-Hispanic <br/> 2 = Black Non-Hispanic <br/> 3 = Hispanic (regardless of race) <br/> 4 = Asian, Pacific Islander <br/> 5 = American Indian, Alaskan Native <br/> 6 = Other/unknown
+| Ivdrug        | IV drug use history               |1 = Never <br/> 2 = Currently <br/> 3 = Previously
+| Hemophil      | Hemophiliac		                    |1 = Yes <br/> 2 = No
+| Karnof        | Karnofsky Performance Scale       |100 = Normal <br/> 90 = Normal activity possible <br/> 80 = Normal activity with effort <br/> 70 = Cares for self;
+| cd4           | Baseline CD4 count	              |
+| Priorzdv      | Months of prior ZDV use           |Months
+| age           | Age at Enrollment                 |Years
+--------------------------------------------------------------------------------------------------
+
+Initial model:
+$$coxph(Surv(time, censor) = factor(tx) + factor(strat2) + factor(raceth) + factor(ivdrug) + factor(hemophil) + factor(karnof) + cd4 + priorzdv + age, data = AIDs)$$
+
+<br>
+
+#### d1. Model Selections
+In this analysis, we only consider first order covariates. There is no interactions or higher order terms in the model. Backward selection is applied to the initial model. Among the potential candidates for elimination from the model, the one with the smallest AIC value is the best.
+The best model from stepAIC command is
+coxph(Surv(time, censor) ~ factor(tx) + factor(ivdrug) + factor(karnof) + cd4 + age, data = AIDs)
+The initial model’s AIC is 1238.92. The AIC of this best model is 1228.99. The summary of this model shows that not all the variables’ coefficients are significant at significant level of 0.05. IVdrug (IV drug use history) is not significant with p-value 0.47 and 0.06 (since there are three levels of ivdrug). Age is also not significant with p-value 0.06.
+
+Therefore, the final model is updated to be
+$$coxph(Surv(time, censor) = factor(tx) + factor(karnof) + cd4, data = AIDs)$$
+
+<br>
+
+```{r echo=FALSE}
+fit <- coxph(Surv(time, censor) ~ tx  + strat2 + raceth + ivdrug + hemophil + karnof + cd4 + priorzdv + age, data = AIDs)
+fit <- coxph(Surv(time, censor) ~ factor(tx)  + factor(strat2) + factor(raceth) + factor(ivdrug) + factor(hemophil) + factor(karnof) + cd4 + priorzdv + age, data = AIDs)
+#fitb = stepAIC(fit, direction="backward", k=2)
+fit2= coxph(Surv(time, censor) ~ factor(tx) + factor(ivdrug) + factor(karnof) + cd4 + age, data = AIDs)
+fit_final = coxph(Surv(time, censor) ~ factor(tx) + factor(karnof) + cd4, data = AIDs)
+summary(fit_final)
+```
+
+<br>
+
+#### d2. Model Diagnostics
+a. Assessing Goodness of fit using Martingale Residuals
+The importance of a good model is its ability to accurately predict the result. Martingale residuals measures the difference between the observed censoring value (0 or 1) and the expected censoring value under a particular Cox model. If the model is correct, the Margingale residuals are distributed with expected value 0. Therefore, by plotting the Martingale residuals of final model against each covariate, we can see to the distribution of those residuals with under different values of covariates in \@ref(fig:figure5). For continuous variable cd4, non-parametric LOESS-smoother with its 95% confidence intervals is added to the plot. The residuals versus all covariates are evenly distributed. There are some outliers in each covariate. But it is improved compared to the null model.
+
+```{r figure5,fig.cap='The Martingale residuals against each covariate', tidy=FALSE, echo=FALSE, fig.width = 10, fig.height = 8, fig.align='center'}
+### a1. Kaplan-Meier
+fit_final = coxph(Surv(time, censor) ~ factor(tx) + factor(karnof) + cd4, data = AIDs)
+#summary(fit_final)
+# a
+smoothSEcurve <- function(yy, xx) {
+# use after a call to "plot"
+# fit a lowess curve and 95% confidence interval curve
+# make list of x values
+xx.list <- min(xx) + ((0:100)/100)*(max(xx) - min(xx))
+# Then fit loess function through the points (xx, yy) # at the listed values
+yy.xx <- predict(loess(yy ~ xx), se=T, newdata=data.frame(xx=xx.list))
+lines(yy.xx$fit ~ xx.list, lwd=2)
+lines(yy.xx$fit - qt(0.975, yy.xx$df)*yy.xx$se.fit ~ xx.list, lty=2) 
+lines(yy.xx$fit + qt(0.975, yy.xx$df)*yy.xx$se.fit ~ xx.list, lty=2) 
+}
+rr.final <- residuals(fit_final, type="martingale")
+par(mfrow = c(2,2))
+plot(rr.final ~ cd4, data = AIDs, xlab="CD4 (Multiple measurements)")
+smoothSEcurve(rr.final, AIDs$cd4)
+title("Martingale residuals\nversus cd4")
+
+plot(rr.final ~ factor(AIDs$tx), xlab="tx")
+title("Martingale residuals\nversus treatment group")
+
+plot(rr.final ~ factor(AIDs$karnof), xlab="karnof")
+title("Martingale residuals\nversus Karnofsky Performance Scale")
+
+```
+
+b. Checking the proportion hazards assumption
+The proportion hazards are the key assumption in the Cox model. It allows us to cancel out the baseline hazard. If a categorical variable with many levels has a parallel log hazard functions. The proportion hazards assumption holds. Therefore, the log cumulative hazard plots are drawn here \@ref(fig:figure6). As you can see, the categorical variables have a parallel log hazard function. Therefore, this assumption holds for this model.
+
+```{r figure6,fig.cap='The proportional hazard for treatment and karnofsky performance scale', tidy=FALSE, echo=FALSE, fig.width = 10, fig.height = 5, fig.align='center'}
+par(mfrow = c(1,2))
+# b1 test tx
+result.surv.zero = survfit(Surv(time, censor) ~ factor(tx), subset = {tx == 0}, data = AIDs)
+time.zero = result.surv.zero$time
+surv.zero = result.surv.zero$surv
+cloglog.zero = log(-log(surv.zero))
+logtime.zero = log(time.zero)
+
+result.surv.one = survfit(Surv(time, censor) ~ factor(tx), subset = {tx == 1}, data = AIDs)
+time.one = result.surv.one$time
+surv.one = result.surv.one$surv
+cloglog.one = log(-log(surv.one))
+logtime.one = log(time.one)
+
+plot(cloglog.zero ~ logtime.zero, type="s", col="blue", lwd=2, ylab = "Complmentary log-log survival", xlab = "Log Time") 
+lines(cloglog.one ~ logtime.one, col="red", lwd=2, type="s")
+legend("bottomright", legend=c("Treatment includes IDV", "Control group"), col=c("blue","red"), lwd=2)
+
+# b2 test Karnofsky Performance Scale
+result.surv.zero = survfit(Surv(time, censor) ~ factor(karnof), subset = {karnof == 70}, data = AIDs)
+time.zero = result.surv.zero$time
+surv.zero = result.surv.zero$surv
+cloglog.zero = log(-log(surv.zero))
+logtime.zero = log(time.zero)
+
+result.surv.one = survfit(Surv(time, censor) ~ factor(karnof), subset = {karnof == 80}, data = AIDs)
+time.one = result.surv.one$time
+surv.one = result.surv.one$surv
+cloglog.one = log(-log(surv.one))
+logtime.one = log(time.one)
+
+result.surv.two = survfit(Surv(time, censor) ~ factor(karnof), subset = {karnof == 90}, data = AIDs)
+time.two = result.surv.two$time
+surv.two = result.surv.two$surv
+cloglog.two = log(-log(surv.two))
+logtime.two = log(time.two)
+
+result.surv.three = survfit(Surv(time, censor) ~ factor(karnof), subset = {karnof == 100}, data = AIDs)
+time.three = result.surv.three$time
+surv.three = result.surv.three$surv
+cloglog.three = log(-log(surv.three))
+logtime.three = log(time.three)
+
+plot(cloglog.zero ~ logtime.zero, type="s", col="blue", lwd=2, ylab = "Complmentary log-log survival", xlab = "Log Time") 
+lines(cloglog.one ~ logtime.one, col="red", lwd=2, type="s")
+lines(cloglog.two ~ logtime.two, col="green", lwd=2, type="s")
+lines(cloglog.three ~ logtime.three, col="black", lwd=2, type="s")
+legend("bottomright", legend=c("Cares for self", "Normal activity with effort","Normal activity possible", "Normal"), col=c("blue","red","green","black"), lwd=2)
+```
+
+c. Checking the proportion hazards assumption using Schoenfeld residuals
+Testing the time dependent covariates is equivalent to testing for a non-zero slope in a generalized linear regression of the scaled Schoenfeld residuals on functions of time. Therefore, by using zph function, I can calculate the scaled Schoenfeld residuals directly. A non-zero slop is an indication of a violation of the proportional hazard assumption. As shown in Figure \@ref(fig:figure7), almost all the predictors has all zero slope. Therefore, we can keep all the predictors in the model.
+
+```{r figure7,fig.cap='Schoenfeld residuals plot', tidy=FALSE, echo=FALSE, fig.width = 10, fig.height = 3, fig.align='center'}
+# c test Karnofsky Performance Scale
+fit_final.zph <- cox.zph(fit_final, transform = 'log')
+#fit_final.zph
+par(mfrow = c(1,3))
+plot(fit_final.zph)
+```
+
+d. Goodness-of-fit test if the model follows exponential (1) distribution
+Then the Kolmogorov-Smirnov test is used to test if the model follows exponential one distribution. And the p-value for this test is < 2.2e-16, meaning it does not follow exponential one distribution.
+```{r figure8,fig.cap='Check if cumulative hazard follows exponential one', tidy=FALSE, echo=FALSE, fig.width = 6, fig.height = 4, fig.align='center'}
+pred <- predict(fit_final, type="risk",data = AIDs)
+par(mfrow = c(1,1))
+plot(sort(pred), ylab = "Cumulative hazard", xlab= "", main = "Cumulative hazard Vs Index")
+#ks.test(pred, rexp(10000, rate = 1)) # it's not exponential
+```

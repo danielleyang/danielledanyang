@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Danielle Chen</title>
+    <link>/categories/r/</link>
+    <description>Recent content in R on Danielle Chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 04 Jan 2017 17:44:03 -0700</lastBuildDate>
+    
+	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Survival Analysis of Randomized Placebo-controlled Trial of HIV-1 disease</title>
+      <link>/projects/2017-01-04-survival-analysis/</link>
+      <pubDate>Wed, 04 Jan 2017 17:44:03 -0700</pubDate>
+      
+      <guid>/projects/2017-01-04-survival-analysis/</guid>
+      <description>1.TL;DR In this analysis, survival Cox-ph model shows that portential risk factors for HIV-1 includes whether or not patients receive previous treatments (tx), patients’ ability to tolerate chemotherapy (karnof) and patient’s baseline cd4 counts (cd4). Exploratory analysis on mean, median survival time for HIV patients and non patients were compared before performing the model. This is the analysis I did when I took Survival Analysis course (BST 222) at UC Davis.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Danielle Chen">
+    <meta name="description" content="/">
+    <meta name="keywords" content="Data Analyst, Chemist, Foodie, Data Scientist">
+    <meta name="private-inner" content="I was also a chemist for 6 years. My favoriate street food is Jianbingguozi - Check out the recipe in my blog :)">
+
+    <meta property="og:site_name" content="Danielle Chen">
+    <meta property="og:title" content="
+  Where will a new guest book their first travel experience? - Danielle Chen
+">
+    <meta property="og:description" content="Wonder how to predict Airbnb user&#39;s destination based on their online session data? ">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/projects/work2.utf8/">
+    <meta property="og:image" content="/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="/projects/work2.utf8/">
+    <meta name="twitter:image" content="/">
+
+    <base href="/projects/work2.utf8/">
+    <title>
+  Where will a new guest book their first travel experience? - Danielle Chen
+</title>
+
+    <link rel="canonical" href="/projects/work2.utf8/">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Danielle Chen">
+      <link href="/index.xml" rel="feed" type="application/rss+xml" title="Danielle Chen" />
+    
+
+    <meta name="generator" content="Hugo 0.72.0" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Danielle Chen</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/about">About</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/posts">Posts</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/projects">Projects</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>Where will a new guest book their first travel experience?</h1>
+    </header>
+
+    <ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#blogdown">Datasets</a></li>
+<li><a href="#tool">Tools and Packages used</a></li>
+</ul>
+</li>
+<li><a href="#eda">Exploratory Data Analysis</a>
+<ul>
+<li><a href="#missing">Missing Variables</a></li>
+<li><a href="#destination">Destination Country Distribution</a></li>
+<li><a href="#gender">Gender</a></li>
+<li><a href="#age">Age</a></li>
+<li><a href="#signup">Signup Method</a></li>
+<li><a href="#month">Account Create Month</a></li>
+<li><a href="#session">Session Related</a></li>
+</ul>
+</li>
+<li><a href="#feature">Feature Engineering</a></li>
+<li><a href="#machinelearning">Machine Learning Models</a>
+<ul>
+<li><a href="#svm">SVM</a></li>
+<li><a href="#random">Random Forest</a></li>
+<li><a href="#xgboost">Xgboost</a></li>
+<li><a href="#ensemble">Ensemble</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+<h2 id="9992introduction">✈Introduction</h2>
+<p>In this project, we use an Airbnb new users booking dataset to predict the users’ country destination. The dataset come from a previous [Kaggle competition](<a href="https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings/data">https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings/data</a> Airbnb). Airbnb enables people to lease or rent short-term lodging including vacation rentals, apartment rentals, homestays, hostel beds, or hotel rooms. Since 2008, Airbnb has 3,000,000 lodging listings in 65,000 cities and 191 countries, serving more than 60 million users. Analyzing new online user behavior is valuable for generating user specific recommendations, improving the booking success rate and customer retention rate. In this project, we will use the user session data provided by Airbnb to predict user&rsquo;s booking destination. There are 11 unique destination counties in the dataset. We will use user&rsquo;s profile information (such as gender, age, account created date etc) and user&rsquo;s session data (such as action, action type, etc) to classify the destination country.</p>
+<h3 id="datasets">Datasets</h3>
+<p>There are 3 important datasets provided by Airbnb: training, test and session datasets. In the training dataset, there are <!-- raw HTML omitted -->213451 <!-- raw HTML omitted -->unique user ids; In the test dataset, there are <!-- raw HTML omitted -->62096<!-- raw HTML omitted --> unique user ids; In thie sessions dataset, there are <!-- raw HTML omitted -->135484<!-- raw HTML omitted --> unique user ids; 71815 (34.58%) users in the training datasets have data in the session; 61668 (99.31%) users in the test datasets have data in the session. You can see it from the Venn diagram shown below. There are no duplicated IDs in test and training datasets. The labels for the testing data is unknown. The performance of the model on test dataset can only be assessed through kaggle scoring metrics. For our learning purpose, we decide to <!-- raw HTML omitted -->use training dataset only<!-- raw HTML omitted --> in this project.</p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="tools-and-packages-used">Tools and Packages used</h3>
+<ul>
+<li><strong><!-- raw HTML omitted -->Data Munging<!-- raw HTML omitted --></strong> : pandas, numpy</li>
+<li><strong><!-- raw HTML omitted -->Machine Learning<!-- raw HTML omitted --></strong> : sklearn</li>
+<li><strong><!-- raw HTML omitted -->Visualization<!-- raw HTML omitted --></strong> : matplotlib, Seaborn, Plotly</li>
+</ul>
+<h2 id="9992exploratory-data-analysis">✈Exploratory Data Analysis</h2>
+<p>There are 73815 users in both session and training datasets. Now, let us explore the data of these 73815 users data!</p>
+<h3 id="missing-variables">Missing Variables</h3>
+<p>A lots of values are recorded as &ndash;unknown&ndash;. Let we replace them with NaN. A lot of users gender, age and first_browser are missing. We will impulate it later in the feature engineering part.
+<!-- raw HTML omitted --></p>
+<h3 id="destination-country-distribution">Destination Country Distribution</h3>
+<p>Most of the users did not book, thus they are marked as NDF(None Destination Found). NDF and US are two dominant categories. The Y distribution is super imbalanced.
+<!-- raw HTML omitted --></p>
+<h3 id="gender">Gender</h3>
+<p>Well balnaced between male and female with female slightly more.</p>
+<p><!-- raw HTML omitted --></p>
+<p>We do not find significant difference between two genders for each destination.</p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="age">Age</h3>
+<p>For the age, there are some extreme values. For example, 2 of them are less than 10 and 721 of them are greater than 100 years old. When we draw the age distribution plot, we would omit them. Most of the users are below 40 years old.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For US, young people prefer to book US houses compared with older group. However, the difference is not very obvious.</p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="sign-up-method">Sign Up Method</h3>
+<ul>
+<li><strong><!-- raw HTML omitted -->basic<!-- raw HTML omitted --></strong> : 55135</li>
+<li><strong><!-- raw HTML omitted -->facebook<!-- raw HTML omitted --></strong> : 18136</li>
+<li><strong><!-- raw HTML omitted -->google<!-- raw HTML omitted --></strong> : 544</li>
+</ul>
+<p>The users use basic sign up method has a little bit higher probability to book the houses. The below shows a list of affilate providers.
+<!-- raw HTML omitted --></p>
+<p>affiliate provider
+<!-- raw HTML omitted --></p>
+<h3 id="account-create-month">Account Create Month</h3>
+<p>The number of new accounts keep growing and we do not find obvious seasonal pattern, although there is a littble drop down from Jan to Feb.
+<!-- raw HTML omitted --></p>
+<h2 id="sessions-related">Sessions Related</h2>
+<p>There are 332 values for action. The most common 10 are shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>The most common action type is</p>
+<p><!-- raw HTML omitted --></p>
+<p>There are 129 values for action details. The most common 10 are shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>We need to clean the nan and -unknown- data later.</p>
+<h2 id="feature-engineering">Feature Engineering</h2>
+<p>In the feature engineering part, not only training dataset but also testing dataset is used. From our previous exploratory data analysis, age of more than 50% users are missing. Therefore, we will use the age and gender distributions provided by Airbnb to imputate those missing values. Since the age distribution includes users in the training and testing datasets, it is necessary for us to use both. And also, the processed testing dataset in this project can be used in the future if we want to explore more after this class.</p>
+<h3 id="session-dataset">Session Dataset</h3>
+<p>In this session dataset, it has 6 variables, including user id, action (lookup, search results etc), action type (the way they execute that action), action detail(what exactly they lookup, are they viewing results or editing etc), device type (what device they use when they do this action) and secs elapsed (the time they stay in this session). Every time, when users logged in to their account and make actions, their informaiton were recorded. Therefore, each user has more than 1 record. For example, the table shows below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>In this dataset, there are 365 action values. We group by the action and count each action&rsquo;s frequency. The average number of count is 29214. We decide to change <!-- raw HTML omitted -->action values with less than 100 frequency to &lsquo;OTHER&rsquo;.<!-- raw HTML omitted --> The resulted dataset has 230 action values.</p>
+<p>In order to merge with training dataset, we need to genearate one record for each user id. Therefore, an important step in this feature engineering is to extract useful statistics from session data and create a new dataset which includes one row for each user.</p>
+<p>First, we group by user&rsquo;s id and check the number of actions he/she has done. And then, we are transforming the action, action_type, action_detail, device_type, and section elapsed variables from <!-- raw HTML omitted --> long to wide format <!-- raw HTML omitted -->.</p>
+<p>Now, we are taking action as a example to show how the transformation process works. First, we sort the action values based on their count descendingly. Action Show has 2768278 rows. It is ranked as the first and its index is 230. You can check the details below. These action values are transformed as the panda dataframe column. Therefore, we transform the dataset from long to wide form. Instead of having one column to show action, we have 231 columns now. The rank index plus one is its column name. Therefore, columns c_1 to c_231 are the one-hot-encoding columns for action. Afte that, columns c_232 to c_234 are the number of unique actions this user did, the mean count of these actions and the standard deviation.</p>
+<div class="highlight"><pre class="chroma"><code class="language-r" data-lang="r"><span class="n">df_sessions.action</span> <span class="o">=</span> <span class="nf">df_sessions.action.fillna</span><span class="p">(</span><span class="s">&#39;NAN&#39;</span><span class="p">)</span>
+<span class="n">df_sessions.action_type</span> <span class="o">=</span> <span class="nf">df_sessions.action_type.fillna</span><span class="p">(</span><span class="s">&#39;NAN&#39;</span><span class="p">)</span>
+<span class="n">df_sessions.action_detail</span> <span class="o">=</span> <span class="nf">df_sessions.action_detail.fillna</span><span class="p">(</span><span class="s">&#39;NAN&#39;</span><span class="p">)</span>
+<span class="n">df_sessions.device_type</span> <span class="o">=</span> <span class="nf">df_sessions.device_type.fillna</span><span class="p">(</span><span class="s">&#39;NAN&#39;</span><span class="p">)</span>
+
+<span class="c1"># Action values with low frequency are changed to &#39;OTHER&#39;</span>
+<span class="n">act_freq</span> <span class="o">=</span> <span class="m">100</span>  <span class="c1">#Threshold for frequency</span>
+<span class="n">act</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">(</span><span class="nf">zip</span><span class="p">(</span><span class="o">*</span><span class="nf">np.unique</span><span class="p">(</span><span class="n">df_sessions.action</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="n">True</span><span class="p">)))</span>
+<span class="n">df_sessions.action</span> <span class="o">=</span> <span class="nf">df_sessions.action.apply</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="o">:</span> <span class="s">&#39;OTHER&#39;</span> <span class="n">if</span> <span class="n">act[x]</span> <span class="o">&lt;</span> <span class="n">act_freq</span> <span class="n">else</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="n">f_act</span> <span class="o">=</span> <span class="nf">df_sessions.action.value_counts</span><span class="p">()</span><span class="nf">.argsort</span><span class="p">()</span> <span class="c1"># descending</span>
+<span class="n">f_act</span>
+</code></pre></div><p>After transformation, here is a list of columns decriptions and an example of the dataframe.</p>
+<ul>
+<li>c_1 to c_234: 231 unique action values + # of unique action values for each user + (mean + std) of the count</li>
+<li>c_235 to c_393: 156 unique action detail values + # of unique action detail + mean + std</li>
+<li>c_394 to c_407: 11 unique action types + # of unique action type + mean + std</li>
+<li>c_408 to c_418: (1 + log of sum of elapsed time) for each of the 11 unique action types</li>
+<li>c_419 to c_436: 14 device types + # of unique device type + mean + std</li>
+<li>c_437 to c_456: sections elapsed sum + mean + std + median + total mean + 15 time intervals count</li>
+</ul>
+<p><!-- raw HTML omitted --></p>
+<h3 id="train--test-dataset">Train + Test Dataset</h3>
+<p>After dropping the destination variable in the training dataset, we combine the train and test set. There are 275547 records. Within them, 116866 users&rsquo; age are missing. 6085 first_affilate_tracked is missing. We also take a look at the NaN or NAN values. In order to process the dataset easily, <!-- raw HTML omitted --> we replace all missing or unknown values with -1<!-- raw HTML omitted -->. After this step, we can see that the variables which contains missing values are gender, age, language, first_affiliate_tracked, and first_brower.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For <!-- raw HTML omitted -->gender<!-- raw HTML omitted -->, there are 47% missing values. It is difficult to impute gender. The only way we can do is to random guess. Therefore, we decide to leave gender like this.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For <!-- raw HTML omitted -->age<!-- raw HTML omitted -->, if the age is between 14 to 99, we think it is reasonable. Otherwise, if the age is between 1900 to 2000, the user may mistakenly input their birth year into the age. Therefore, we substract that year from 2014. If the age is between 0 and 14, we decide to use 14 as their age. If the age is between 2010 to 2016, the user probably input the current year. Then, we decide to use -1 as their age.</p>
+<p>After that, we find may people aged at 105. It is very strange. Therefore, we set those people&rsquo;s age to -1. For people who are aged above 99 and not equal to 105, their age are changed to be 99. There are 118966 people whose age are missing (equal to -1 in our case). The missing values are imputed based on the known age distribution.</p>
+<p>For <!-- raw HTML omitted -->language<!-- raw HTML omitted -->, there is only one person&rsquo;s langauge is unknown. We decide to use english as his/her language since 96% users speak English. After replacing the language to &lsquo;en&rsquo;, the frequency list of language is shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For <!-- raw HTML omitted -->first_affiliate_tracked<!-- raw HTML omitted --> variable, we decide to categorize all the <!-- raw HTML omitted -->unknown to untracked category<!-- raw HTML omitted -->. The frequency list is shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For <!-- raw HTML omitted -->first_brower<!-- raw HTML omitted --> variable, we decide to first combine the values with low frequency (&lt;100&gt; to Other. Then, we decide to <!-- raw HTML omitted -->categorize all the unknown to other<!-- raw HTML omitted --> as well. The frequency list is shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>After that, we extract more information from user account created date. We find out the year, month, day and calculate in which week they create and on which weekday they create. The weekday information is coded using one-hot-encoding. The reason of doing one-hot-encoding is that many machine learning algorithems (such as linear models, svm, knn etc) cannot handle categorical data. There are two common ways to transform the categorical data. One is to factorize. The other one is to use one-hot-encoding. Factorizing does not help since it does not change the nature of the data. We just use a number to replace the character values. Also, it brings a problem since it imparts an ordinal property to the variable. As this is ordinal characteristic is usually not desired. However, using one-hot-encoding can proper representation of the distinct elements of the variable. It also make easy to fine tune the parameters.</p>
+<p>Also the time spans between the account created day and timestamp_first_active is calculated. The sign of this difference is recorded. The season of the account created and timestamp first active are also calculated. The are coded as 0 Winter, 1 Spring, 2 Summer, and 3 Autumn.</p>
+<p>The final step is to one-hot-encoding for age intervals and all the categorical variables such as gender, signup method etc.</p>
+<p>Finally, the train dataset is joined with session dataset. And the test dataset is joined with session dataset as well. Since we only use the training dataset in this project, I split the training dataset. 20% training dataset is used as test set. The result is used as new training dataset.</p>
+<h3 id="the-datasets-used-in-the-machine-learning-modeling-section-are">The datasets used in the machine learning modeling section are</h3>
+<p>The train dataset contains 59052 users data. The test dataset contains 14763 users data.</p>
+<h2 id="9992-machine-learning-models">✈ Machine Learning Models</h2>
+<ul>
+<li>
+<p><strong><a href="https://gohugo.io/themes/overview/">Themes</a></strong> : These are user-generated files for formatting your website. Find one you like <a href="http://themes.gohugo.io/">here</a>.</p>
+</li>
+<li>
+<p><strong>Templates</strong> : Templates come from the theme and determine the look of a specific type of page. Hugo uses two types of page templates by default:
++ <strong><a href="https://gohugo.io/templates/content#single-page">Single</a></strong> : This type is for pages that will only have one kind of content (e.g., a blog post)
++ <strong><a href="https://gohugo.io/templates/list/">List</a></strong> : This type is for pages that will only consist of a list of things (e.g., a portfolio page of your projects or a page that lists your blog posts)</p>
+</li>
+<li>
+<p><strong><a href="https://gohugo.io/themes/creation#partial-templates">Partials</a></strong> : To generate different kinds of content, Hugo relies on html files specific to that content type. (e.g., a different setup for an about page, the design of the sidebar or header of your page, etc.)</p>
+</li>
+<li>
+<p><strong><a href="https://gohugo.io/extras/shortcodes#shortcodes-without-markdown">Shortcodes</a></strong> : To cut down on the amount of by-hand coding needed to generate your site, Hugo uses &ldquo;shortcodes&rdquo; or small snippets of code that serve a single, commonly used purpose. (e.g., to insert a single Tweet in your page you can use the Twitter shortcode: <code></code> ). Shortcodes can be used <em>inside</em> of partials.</p>
+</li>
+<li>
+<p><strong><a href="https://gohugo.io/tutorials/creating-a-new-theme#front-matter">Front Matter</a></strong> : The information at the top section of any markdown (.md) or Rmarkdown (.Rmd) document that gives important information for the site development. For instance, at the top of this .Rmd document, the front matter looks like this.</p>
+</li>
+<li>
+<p><strong><a href="https://gohugo.io/templates/variables/">Variables</a></strong>: These pieces of information often come from either front matter, the content itself, or the file&rsquo;s location (e.g., a file in the &ldquo;blog&rdquo; folder will automatically obtain the .Section variable &ldquo;blog&rdquo;, while the .Title variable is defined by you in the front matter, and the .Summary variable is automatically generated by Hugo to include the first 70 words of your post).</p>
+</li>
+</ul>
+<p>Certainly, there are other important aspects of Hugo, but I found those to be the most important (and often most confusing) when making my site.</p>
+<h3 id="github">GitHub</h3>
+<p>I don&rsquo;t want to go into too much detail about GitHub (or this post will never actually get started), but I do want to provide some background information about what it does and why it&rsquo;s useful. (Again, <a href="#building-the-page">skip ahead</a> if you&rsquo;re a GitHub pro)</p>
+<p>First, GitHub is powered by Git, a command-line version-control system.  If you&rsquo;re not familiar with it, Git has no buttons to press, only commands to type to control it, but it allows you to save multiple versions of a file.  The beauty of version control is that if you mess up (which, let&rsquo;s be real, we&rsquo;ve all done), you can go back to the last saved version.  It&rsquo;s like reaching a &ldquo;save point&rdquo; in a video game that you can return to if your character dies. GitHub is the place where you can store all of these versions of your work. Other developers can see, make a copy of, ammend their copy, and make suggestions on your work.</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --> <strong>Keep in mind</strong>: GitHub does have a free version, but it makes all of your work publicly available. While this is fantastic for helping others to add on or change your project, be aware of this if you are building a website on this platform. For instance, you can go dig around in all of the code used to generate my site <a href="https://github.com/ProQuestionAsker/ProQuestionAsker.github.io">here</a>.</p>
+<p>Ok, <a href="https://help.github.com/articles/github-glossary/">basic vocab</a> for GitHub use and then I&rsquo;ll promise I&rsquo;ll get started!</p>
+<ul>
+<li><strong>Repository</strong> : When you make an account on <a href="https://github.com/">Github</a> the first thing you&rsquo;ll want to do is make a repository (or repo). This is the place to store all of your files for a given project.</li>
+<li><strong>Forking</strong> : Say you really like someone else&rsquo;s project on GitHub and you&rsquo;d like to make a copy of it on your account to adjust however you&rsquo;d like? Well, that process is called forking. To do it, find a repo that you like and click the ' <!-- raw HTML omitted --><!-- raw HTML omitted --> fork ' button in the right hand corner.</li>
+<li><strong>Branch</strong> : This is a &ldquo;parallel version&rdquo; of a repo that you can adjust without impacting the original repo.</li>
+<li><strong>Remote</strong> : The copy of your files that reside on GitHub.com</li>
+<li><strong>Local</strong> : The copy of your files that reside on your computer</li>
+<li><strong>Commit</strong> : A change to a file, usually submitted with a message from you to indicate what was changed</li>
+<li><strong>Push</strong> : Once you commit changes on your local files, you want to send (or push) them to your remote repo, making them available for others.</li>
+<li><strong>Pull</strong> : If multiple people are working in your remote repo, they may have made a change that is not reflected in your local version. You can pull the newest version down to your computer to work on it.</li>
+<li><strong>Subtree</strong> : This is a repo inside of a repo. More on this later.</li>
+</ul>
+<p>Ok, all of that will be helpful as we continue!</p>
+<h2 id="building-the-page">Building the Page</h2>
+<h3 id="installing-necessary-packages-and-software">Installing Necessary Packages and Software</h3>
+<p>3 last notes before I get started.</p>
+<ul>
+<li>Since my site is already created (and I didn&rsquo;t think about documenting it while I was doing it), this post documents the creation of a near-identical site for an animation studio: <a href="http://animoplex.com">Animoplex</a>.</li>
+<li>I&rsquo;m erring on the side of too much detail in this post, so skip past things you know as needed.</li>
+<li>I know, I&rsquo;m behind the times and am still using the command line outside of RStudio to work with GitHub. Some day I&rsquo;ll convert. If you&rsquo;d like to do that today, there&rsquo;s information <a href="https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN">here</a>.</li>
+</ul>
+<p>Ok, getting started for real.</p>
+<h4 id="setting-up-github">Setting Up GitHub</h4>
+<ol>
+<li>If you don&rsquo;t already have one, create a <a href="https://github.com/">GitHub</a> account.
+<ul>
+<li><em>Choose your username wisely as it will be in your new site URL</em>.</li>
+</ul>
+</li>
+</ol>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --> <strong>If Hugo thinks your post is a draft, it will not publish it.</strong></p>
+<h2 id="have-fun">Have fun!</h2>
+<p>That&rsquo;s it! That&rsquo;s how I set up the page you are currently on, and I hope it has helped you figure out how to use GitHub, Hugo, and blogdown together.</p>
+<p>I&rsquo;d love to hear any comments you may have and let me know if you have any questions at all. Good luck!</p>
+
+  </article>
+</section>
+
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=%2fprojects%2fwork2.utf8%2f&ref_src=twsrc%5Etfw&text=Where%20will%20a%20new%20guest%20book%20their%20first%20travel%20experience%3f Danielle%20Chen&tw_p=tweetbutton&url=%2fprojects%2fwork2.utf8%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=%2fprojects%2fwork2.utf8%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=%2fprojects%2fwork2.utf8%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+      <p>Thanks for checking me out!</p>
+    
+     © 2017    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+      <p id="privateTriggerText">Do you want to know more about me?→<a id="privateTrigger">Click!</a></p>
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=%2fprojects%2fwork2.utf8%2f&ref_src=twsrc%5Etfw&text=Where%20will%20a%20new%20guest%20book%20their%20first%20travel%20experience%3f Danielle%20Chen&tw_p=tweetbutton&url=%2fprojects%2fwork2.utf8%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=%2fprojects%2fwork2.utf8%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=%2fprojects%2fwork2.utf8%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
+    </main>
+
+    
+
+  <script src="/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text("Thank You! Please share it if you like it→");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>

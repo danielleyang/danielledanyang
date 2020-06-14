@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Danielle Chen">
+    <meta name="description" content="/">
+    <meta name="keywords" content="Data Analyst, Chemist, Foodie, Data Scientist">
+    <meta name="private-inner" content="I was also a chemist for 6 years. My favoriate street food is Jianbingguozi - Check out the recipe in my blog :)">
+
+    <meta property="og:site_name" content="Danielle Chen">
+    <meta property="og:title" content="
+  Where will a new guest book their first airbnb travel experience? - Danielle Chen
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/projects/sta208_final_project_report_crazy-add-conclusion/">
+    <meta property="og:image" content="/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="/projects/sta208_final_project_report_crazy-add-conclusion/">
+    <meta name="twitter:image" content="/">
+
+    <base href="/projects/sta208_final_project_report_crazy-add-conclusion/">
+    <title>
+  Where will a new guest book their first airbnb travel experience? - Danielle Chen
+</title>
+
+    <link rel="canonical" href="/projects/sta208_final_project_report_crazy-add-conclusion/">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Danielle Chen">
+      <link href="/index.xml" rel="feed" type="application/rss+xml" title="Danielle Chen" />
+    
+
+    <meta name="generator" content="Hugo 0.72.0" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Danielle Chen</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/about">About</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/posts">Posts</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/projects">Projects</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>Where will a new guest book their first airbnb travel experience?</h1>
+    </header>
+
+    <!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;script&gt;
+</span><span class="s1">code_show=true; 
+</span><span class="s1">function code_toggle() {
+</span><span class="s1"> if (code_show){
+</span><span class="s1"> $(&#39;div.input&#39;).hide();
+</span><span class="s1"> } else {
+</span><span class="s1"> $(&#39;div.input&#39;).show();
+</span><span class="s1"> }
+</span><span class="s1"> code_show = !code_show
+</span><span class="s1">} 
+</span><span class="s1">$( document ).ready(code_toggle);
+</span><span class="s1">&lt;/script&gt;
+</span><span class="s1">&lt;form action=&#34;javascript:code_toggle()&#34;&gt;&lt;input type=&#34;submit&#34; value=&#34;Click here to toggle on/off the raw code.&#34;&gt;&lt;/form&gt;&#39;&#39;&#39;</span><span class="p">)</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span><span class="s2">&lt;style&gt;
+</span><span class="s2">.output_png {
+</span><span class="s2">    display: table-cell;
+</span><span class="s2">    text-align: center;
+</span><span class="s2">    vertical-align: middle;
+</span><span class="s2">}
+</span><span class="s2">&lt;/style&gt;
+</span><span class="s2">&#34;&#34;&#34;</span><span class="p">)</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">plotly.tools</span> <span class="kn">as</span> <span class="nn">tls</span>
+<span class="kn">import</span> <span class="nn">chart_studio.plotly</span> <span class="kn">as</span> <span class="nn">py</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="kn">as</span> <span class="nn">go</span> 
+<span class="kn">from</span> <span class="nn">matplotlib_venn</span> <span class="kn">import</span> <span class="n">venn3</span><span class="p">,</span> <span class="n">venn3_circles</span>
+<span class="kn">from</span> <span class="nn">plotly.offline</span> <span class="kn">import</span> <span class="n">download_plotlyjs</span><span class="p">,</span> <span class="n">init_notebook_mode</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">iplot</span>
+<span class="kn">import</span> <span class="nn">chart_studio</span>
+<span class="n">init_notebook_mode</span><span class="p">(</span><span class="n">connected</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">chart_studio</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">set_credentials_file</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;danielle91515&#39;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;bNFnux0jxNwO9rsAJX17&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">train_users_path</span><span class="o">=</span><span class="s1">&#39;train_users_2.csv&#39;</span>
+<span class="n">test_users_path</span><span class="o">=</span><span class="s1">&#39;test_users.csv&#39;</span>
+<span class="n">sessions_path</span><span class="o">=</span><span class="s1">&#39;sessions.csv&#39;</span>
+
+<span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">train_users_path</span><span class="p">)</span> <span class="c1"># Load training datasets</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;country_destination&#39;</span><span class="p">]</span> <span class="c1"># Save training labels</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">test_users_path</span><span class="p">)</span>   <span class="c1"># Load testing datasets</span>
+<span class="n">df_sessions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sessions_path</span><span class="p">)</span> 
+<span class="n">df_sessions</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span> <span class="c1"># Change user_id to id</span>
+<span class="n">df_sessions</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;user_id&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">sessions_id</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">df_sessions</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># Abc, aBc, ABc, abC, AbC, aBC, ABC</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">venn3</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sessions_id</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sessions_id</span><span class="p">))))),</span> <span class="nb">len</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sessions_id</span><span class="p">))))),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">]))))),</span> <span class="mi">0</span><span class="p">),</span> <span class="n">set_labels</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Session_IDs&#39;</span><span class="p">,</span> <span class="s1">&#39;Training_IDs&#39;</span><span class="p">,</span> <span class="s1">&#39;Testing_IDs&#39;</span><span class="p">))</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">venn3_circles</span><span class="p">(</span><span class="n">subsets</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sessions_id</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sessions_id</span><span class="p">))))),</span> <span class="nb">len</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sessions_id</span><span class="p">))))),</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">]))))),</span> <span class="mi">0</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+
+<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_lw</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ls</span><span class="p">(</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;Venn diagram of three dataset&#34;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="output_12_0.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --> Return to contents ⇪ <!-- raw HTML omitted --> <!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">train_users_path</span><span class="p">)</span>
+<span class="n">df_train</span> <span class="o">=</span> <span class="n">df_train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;date_first_booking&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df_sessions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sessions_path</span><span class="p">)</span>
+<span class="n">df_sessions</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span>
+<span class="n">df_sessions</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;user_id&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">users_train_insession</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df_sessions</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]))))</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">df_train</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">users_train_insession</span><span class="p">))]</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Number of missing values of every column</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-unknown-&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">all_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</code></pre></div><pre><code>id                             0
+date_account_created           0
+timestamp_first_active         0
+gender                     37788
+age                        32248
+signup_method                  0
+signup_flow                    0
+language                       0
+affiliate_channel              0
+affiliate_provider             0
+first_affiliate_tracked      302
+signup_app                     0
+first_device_type              0
+first_browser              12271
+country_destination            0
+dtype: int64
+</code></pre>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Percentage of each destination</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;country_destination&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span>
+</code></pre></div><pre><code>NDF      0.610188
+US       0.272235
+other    0.049516
+FR       0.019440
+IT       0.013263
+GB       0.009903
+ES       0.009578
+CA       0.005961
+DE       0.003387
+NL       0.003346
+AU       0.002059
+PT       0.001124
+Name: country_destination, dtype: float64
+</code></pre>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">gender_percentage</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">gender</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span>
+<span class="n">gender_percentage</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Airbnb Gender Dist&#39;</span><span class="p">)</span>
+</code></pre></div><pre><code>&lt;matplotlib.text.Text at 0x11b626790&gt;
+</code></pre>
+<p><img src="output_26_1.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">women</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FEMALE&#39;</span><span class="p">)</span>
+<span class="n">men</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MALE&#39;</span><span class="p">)</span>
+
+<span class="n">female_destinations</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;FEMALE&#39;</span><span class="p">,</span> <span class="s1">&#39;country_destination&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">/</span> <span class="n">women</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">male_destinations</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MALE&#39;</span><span class="p">,</span> <span class="s1">&#39;country_destination&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">/</span> <span class="n">men</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Bar width</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="n">male_destinations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#4DD3C9&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">female_destinations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FFA35D&#39;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Female&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Destination Country&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Airbnb Gender VS Destination Dist &#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="output_28_0.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">upr</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">100</span> 
+<span class="n">lwr</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">age_percentage</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">age</span><span class="p">[</span><span class="n">lwr</span> <span class="o">&amp;</span> <span class="n">upr</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">age_percentage</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Airbnb User Age Dist&#39;</span><span class="p">)</span>
+<span class="c1">#Majority of users in their late twenties - early thirties</span>
+</code></pre></div><pre><code>&lt;matplotlib.text.Text at 0x124a59d50&gt;
+</code></pre>
+<p><img src="output_32_1.png" alt="png"></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">younger</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">&lt;</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">older</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">&gt;=</span><span class="mi">35</span><span class="p">)</span>
+
+<span class="n">young_destinations</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">&lt;</span><span class="mi">35</span><span class="p">,</span> <span class="s1">&#39;country_destination&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">/</span><span class="n">younger</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">old_destinations</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">&gt;=</span><span class="mi">35</span><span class="p">,</span> <span class="s1">&#39;country_destination&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">/</span> <span class="n">older</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Bar width</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="n">young_destinations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>  <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Age&lt;35&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#4DD3C9&#39;</span><span class="p">)</span>
+<span class="n">old_destinations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>  <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Age&gt;=35&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FFA35D&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Destination Country&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Airbnb Age Group VS Destination Dist &#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="output_33_0.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Signup_method</span>
+<span class="n">Counter</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">signup_method</span><span class="p">)</span>
+</code></pre></div><pre><code>Counter({'basic': 55135, 'facebook': 18136, 'google': 544})
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;NDF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">country_destination</span><span class="o">==</span><span class="s1">&#39;NDF&#39;</span><span class="p">)</span>
+<span class="n">n_ndf</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;NDF&#39;</span><span class="p">])</span>
+<span class="n">n_non_ndf</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span><span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;NDF&#39;</span><span class="p">])</span>
+
+<span class="n">ndf_destinations</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_data</span><span class="o">.</span><span class="n">NDF</span><span class="p">,</span> <span class="s1">&#39;signup_method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">/</span><span class="n">n_ndf</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">non_ndf_destinations</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">all_data</span><span class="o">.</span><span class="n">NDF</span><span class="p">,</span> <span class="s1">&#39;signup_method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">/</span> <span class="n">n_non_ndf</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># Bar width</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="n">ndf_destinations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>  <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;NDF&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#4DD3C9&#39;</span><span class="p">)</span>
+<span class="n">non_ndf_destinations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>  <span class="n">position</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Non_NDF&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FFA35D&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Destination Country&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percentage&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Airbnb Sign up Method VS Destination Dist &#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><pre><code>/anaconda/envs/141b/lib/python2.7/site-packages/ipykernel/__main__.py:1: SettingWithCopyWarning:
+
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+</code></pre>
+<p><img src="output_37_1.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Affilate provider</span>
+<span class="n">Counter</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">affiliate_provider</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</code></pre></div><pre><code>[('direct', 46814),
+ ('google', 21604),
+ ('other', 3315),
+ ('bing', 862),
+ ('facebook', 664),
+ ('padmapper', 166),
+ ('email-marketing', 93),
+ ('yahoo', 92),
+ ('facebook-open-graph', 89),
+ ('gsp', 32),
+ ('vast', 29),
+ ('naver', 19),
+ ('baidu', 13),
+ ('yandex', 13),
+ ('meetup', 7),
+ ('craigslist', 2),
+ ('daum', 1)]
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Signup_app</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&#34;The signup app is &#34;</span><span class="p">)</span>
+<span class="n">Counter</span><span class="p">(</span><span class="n">all_data</span><span class="o">.</span><span class="n">signup_app</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</code></pre></div><pre><code>The signup app is 
+
+
+
+
+
+[('Web', 57016), ('iOS', 10410), ('Android', 3779), ('Moweb', 2610)]
+</code></pre>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;date_account_created&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">all_data</span><span class="p">[</span><span class="s1">&#39;date_account_created&#39;</span><span class="p">])</span>
+<span class="n">month</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">year</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">all_data</span><span class="o">.</span><span class="n">date_account_created</span><span class="p">:</span>
+    <span class="n">month</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+    <span class="n">year</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s2">&#34;month&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">month</span>
+<span class="n">all_data</span><span class="p">[</span><span class="s2">&#34;year&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">year</span>
+
+<span class="n">month_count</span> <span class="o">=</span> <span class="n">all_data</span><span class="p">[</span><span class="s2">&#34;month&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">month_count</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Airbnb Account Create Month Dist&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Month&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+</code></pre></div><pre><code>Text(0, 0.5, 'Count')
+</code></pre>
+<p><img src="output_42_1.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">Counter</span><span class="p">(</span><span class="n">df_sessions</span><span class="o">.</span><span class="n">action</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div><pre><code>[('show', 2768278),
+ ('index', 843699),
+ ('search_results', 725226),
+ ('personalize', 706824),
+ ('search', 536057),
+ ('ajax_refresh_subtotal', 487744),
+ ('update', 365130),
+ ('similar_listings', 364624),
+ ('social_connections', 339000),
+ ('reviews', 320591)]
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="s2">&#34;The most common action type is&#34;</span><span class="p">)</span>
+<span class="c1">#Action type</span>
+<span class="n">Counter</span><span class="p">(</span><span class="n">df_sessions</span><span class="o">.</span><span class="n">action_type</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</code></pre></div><pre><code>The most common action type is
+
+
+
+
+
+[('view', 3560902),
+ ('data', 2103770),
+ ('click', 1996183),
+ (nan, 1126204),
+ ('-unknown-', 1031170),
+ ('submit', 623357),
+ ('message_post', 87103),
+ ('partner_callback', 19132),
+ ('booking_request', 18773),
+ ('modify', 1139),
+ ('booking_response', 4)]
+</code></pre>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">Counter</span><span class="p">(</span><span class="n">df_sessions</span><span class="o">.</span><span class="n">action_detail</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div><pre><code>[('view_search_results', 1776885),
+ ('p3', 1376550),
+ (nan, 1126204),
+ ('-unknown-', 1031141),
+ ('wishlist_content_update', 706824),
+ ('user_profile', 656839),
+ ('change_trip_characteristics', 487744),
+ ('similar_listings', 364624),
+ ('user_social_connections', 336799),
+ ('update_listing', 269779)]
+</code></pre>
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --> Return to contents ⇪ <!-- raw HTML omitted --> <!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_sessions</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_sessions</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;NAN&#39;</span><span class="p">)</span>
+<span class="n">df_sessions</span><span class="o">.</span><span class="n">action_type</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">action_type</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;NAN&#39;</span><span class="p">)</span>
+<span class="n">df_sessions</span><span class="o">.</span><span class="n">action_detail</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">action_detail</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;NAN&#39;</span><span class="p">)</span>
+<span class="n">df_sessions</span><span class="o">.</span><span class="n">device_type</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;NAN&#39;</span><span class="p">)</span>
+
+<span class="c1"># Action values with low frequency are changed to &#39;OTHER&#39;</span>
+<span class="n">act_freq</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1">#Threshold for frequency</span>
+<span class="n">act</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df_sessions</span><span class="o">.</span><span class="n">action</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)))</span>
+<span class="n">df_sessions</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;OTHER&#39;</span> <span class="k">if</span> <span class="n">act</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">act_freq</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="n">f_act</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span> <span class="c1"># descending</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Computing value_counts. These are going to be used in the one-hot encoding</span>
+<span class="c1">#based feature generation (following loop).</span>
+<span class="n">f_act</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span> <span class="c1"># descending</span>
+<span class="n">f_act_detail</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">action_detail</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span> <span class="c1"># descending</span>
+<span class="n">f_act_type</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">action_type</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span> <span class="c1"># descending</span>
+<span class="n">f_dev_type</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span> <span class="c1"># descending</span>
+
+<span class="c1"># grouping session by id. We will compute features from all rows with the same id.</span>
+<span class="n">dgr_sess</span> <span class="o">=</span> <span class="n">df_sessions</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+<span class="c1"># Loop on dgr_sess to create all the features.</span>
+<span class="c1"># This is about 10 minutes</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dgr_sess</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">dgr_sess</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">cont</span><span class="o">%</span><span class="mi">10000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2"> from </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span><span class="p">(</span><span class="n">cont</span><span class="p">,</span> <span class="n">ln</span><span class="p">))</span>
+    <span class="n">gr</span> <span class="o">=</span> <span class="n">g</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1">#the id, the key in groupby list</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">##### l has the id #####</span>
+    
+    <span class="c1">#The actual first feature is the number of values. the number of actions for each users</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gr</span><span class="p">))</span> <span class="c1">##### l has id + the number of actions in this user #####</span>
+    
+    <span class="n">sev</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">secs_elapsed</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>   <span class="c1"># These values are used later. # these are the values secs_elapsed are known</span>
+    
+    <span class="c1">#action features</span>
+    <span class="c1">#(how many times each value occurs, numb of unique values, mean and std)</span>
+    <span class="n">c_act</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">f_act</span><span class="p">)</span> <span class="c1"># create a list has the length of unique actions for each user</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+        <span class="n">c_act</span><span class="p">[</span><span class="n">f_act</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># this is the user action list and has each action&#39;s count</span>
+                             <span class="c1"># It is the reverse order of f_act</span>
+                             <span class="c1"># In f_act, the order is show, index ....</span>
+                             <span class="c1"># In c_act, the order is .......... index, show</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">c_act_uqc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">c_act</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">c_act_uqc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">c_act_uqc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">c_act_uqc</span><span class="p">)]</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">c_act</span> <span class="c1">##### l now have &#39;id + number of actions in this user + </span>
+                        <span class="c1"># list of all actions and their count + leng of unique actions + </span>
+                        <span class="c1"># mean frequenc + std freq&#34; #####</span>
+    
+    <span class="c1">#action_detail features</span>
+    <span class="c1">#(how many times each value occurs, numb of unique values, mean and std)</span>
+    <span class="n">c_act_detail</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">f_act_detail</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">action_detail</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+        <span class="n">c_act_detail</span><span class="p">[</span><span class="n">f_act_detail</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span> 
+    <span class="n">_</span><span class="p">,</span> <span class="n">c_act_det_uqc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">action_detail</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">c_act_detail</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">c_act_det_uqc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">c_act_det_uqc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">c_act_det_uqc</span><span class="p">)]</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">c_act_detail</span> <span class="c1">##### l now have &#39;id + number of actions in this user + </span>
+                            <span class="c1"># action features + action_detail features#####</span>
+    
+    <span class="c1">#action_type features</span>
+    <span class="c1">#(how many times each value occurs, numb of unique values, mean and std</span>
+    <span class="c1">#+ log of the sum of secs_elapsed for each value)</span>
+    <span class="n">l_act_type</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">f_act_type</span><span class="p">)</span>
+    <span class="n">c_act_type</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">f_act_type</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">action_type</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+        <span class="n">l_act_type</span><span class="p">[</span><span class="n">f_act_type</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">sev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   
+        <span class="n">c_act_type</span><span class="p">[</span><span class="n">f_act_type</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>  
+    <span class="n">l_act_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">l_act_type</span><span class="p">))</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">c_act_type_uqc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">action_type</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">c_act_type</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">c_act_type_uqc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">c_act_type_uqc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">c_act_type_uqc</span><span class="p">)]</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">c_act_type</span> <span class="o">+</span> <span class="n">l_act_type</span>  <span class="c1">##### l now have &#39;id + number of actions in this user + </span>
+                            <span class="c1"># action features + action_detail features + action type + action type elapse#####  </span>
+    
+    <span class="c1">#device_type features</span>
+    <span class="c1">#(how many times each value occurs, numb of unique values, mean and std)</span>
+    <span class="n">c_dev_type</span>  <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">f_dev_type</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">device_type</span> <span class="o">.</span><span class="n">values</span><span class="p">):</span>
+        <span class="n">c_dev_type</span><span class="p">[</span><span class="n">f_dev_type</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span> 
+    <span class="n">c_dev_type</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">c_dev_type_uqc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gr</span><span class="o">.</span><span class="n">device_type</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">c_dev_type</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">c_dev_type_uqc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">c_dev_type_uqc</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">c_dev_type_uqc</span><span class="p">)]</span>        
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">c_dev_type</span>    <span class="c1">##### l now have &#39;id + number of actions in this user + </span>
+                            <span class="c1"># action features + action_detail features + action type + action type elapse</span>
+                            <span class="c1"># + device type #####  </span>
+    
+    <span class="c1">#secs_elapsed features        </span>
+    <span class="n">l_secs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span> 
+    <span class="n">l_log</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">15</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sev</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1">#Simple statistics about the secs_elapsed values.</span>
+        <span class="n">l_secs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sev</span><span class="p">))</span>
+        <span class="n">l_secs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sev</span><span class="p">))</span> 
+        <span class="n">l_secs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sev</span><span class="p">))</span>
+        <span class="n">l_secs</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">sev</span><span class="p">))</span>
+        <span class="n">l_secs</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">l_secs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        
+        <span class="c1">#Values are grouped in 15 intervals. Compute the number of values</span>
+        <span class="c1">#in each interval.</span>
+        <span class="n">log_sev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">sev</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">l_log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">log_sev</span><span class="p">,</span> <span class="n">minlength</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>                      
+    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">l_secs</span> <span class="o">+</span> <span class="n">l_log</span> 
+     <span class="c1">##### l now have &#39;id + number of actions in this user + </span>
+        <span class="c1"># action features + action_detail features + action type + action type elapse</span>
+        <span class="c1"># + device type + secs_elapsed simple statistiics + distribution#####  </span>
+    
+    
+    <span class="c1">#The list l has the feature values of one sample.</span>
+    <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">cont</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1">#Creating a dataframe with the computed features    </span>
+<span class="n">col_names</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1">#name of the columns</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">col_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;c_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> 
+<span class="c1">#preparing objects    </span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+<span class="n">samp_ar</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="n">samp_id</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>   <span class="c1">#The first element in obs is the id of the sample.</span>
+
+<span class="c1">#creating the dataframe        </span>
+<span class="n">df_agg_sess</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">samp_ar</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">col_names</span><span class="p">)</span>
+<span class="n">df_agg_sess</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">samp_id</span>
+<span class="n">df_agg_sess</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df_agg_sess</span><span class="o">.</span><span class="n">id</span>
+
+<span class="n">df_agg_sess</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#df_train = df_train.drop([&#39;country_destination&#39;], axis=1)</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df_tt</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">id</span>
+
+<span class="c1">########Creating features for train+test</span>
+<span class="c1">#Removing date_first_booking</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;date_first_booking&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_tt</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1">#Inputing this kind of missing value with -1 (missing values in train and test)</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-unknown-&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#-unknown is another way of missing value, then = -1.</span>
+
+<span class="c1">#Number of nulls</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;n_null&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">sum</span><span class="p">(</span><span class="n">r</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_tt</span><span class="p">:</span>
+    <span class="k">print</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df_tt</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div><pre><code>id 0
+date_account_created 0
+timestamp_first_active 0
+gender 129480
+age 116866
+signup_method 0
+signup_flow 0
+language 1
+affiliate_channel 0
+affiliate_provider 0
+first_affiliate_tracked 6085
+signup_app 0
+first_device_type 0
+first_browser 44394
+country_destination 62096
+n_null 0
+</code></pre>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">Counter</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">gender</span><span class="p">)</span>
+</code></pre></div><pre><code>Counter({-1: 129480, 'FEMALE': 77524, 'MALE': 68209, 'OTHER': 334})
+</code></pre>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Age</span>
+<span class="c1">#(Keeping ages in 14 &lt; age &lt; 99 as OK and grouping others according different kinds of mistakes)</span>
+<span class="n">av</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">values</span>
+<span class="n">av</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">av</span><span class="o">&lt;</span><span class="mi">2000</span><span class="p">,</span> <span class="n">av</span><span class="o">&gt;</span><span class="mi">1900</span><span class="p">),</span> <span class="mi">2014</span><span class="o">-</span><span class="n">av</span><span class="p">,</span> <span class="n">av</span><span class="p">)</span> <span class="c1">#This are birthdays instead of age (estimating age by doing 2014 - value)</span>
+<span class="n">av</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">av</span><span class="o">&lt;</span><span class="mi">14</span><span class="p">,</span> <span class="n">av</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">),</span> <span class="mi">14</span><span class="p">,</span> <span class="n">av</span><span class="p">)</span> <span class="c1">#Using specific value=14 for age values below 14</span>
+<span class="n">av</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">av</span><span class="o">&lt;</span><span class="mi">2016</span><span class="p">,</span> <span class="n">av</span><span class="o">&gt;</span><span class="mi">2010</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">av</span><span class="p">)</span> <span class="c1">#This is the current year insted of age (using specific value = -1)</span>
+
+<span class="n">av</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">av</span> <span class="o">==</span> <span class="mi">105</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">av</span><span class="p">)</span>  <span class="c1">#A lot of ppl are 105, which is strange, set the value to be -1.</span>
+<span class="n">av</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">av</span> <span class="o">&gt;</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="n">av</span><span class="p">)</span>  <span class="c1">#Using specific value=99 for age values above 99</span>
+
+<span class="n">av_pop</span> <span class="o">=</span> <span class="n">av</span><span class="p">[</span><span class="n">av</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="c1">#Get non-missing the values of age</span>
+<span class="n">av</span><span class="p">[</span><span class="n">av</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">av_pop</span><span class="p">,</span><span class="mi">118966</span><span class="p">,</span><span class="n">replace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span><span class="c1">#For the missing data of age, interpolate it according to the sample age distribution</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">av</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">Counter</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</code></pre></div><pre><code>Counter({14.0: 95,
+         15.0: 16,
+         16.0: 69,
+         17.0: 128,
+         18.0: 1470,
+         19.0: 3530,
+         20.0: 1617,
+         21.0: 2780,
+         22.0: 4399,
+         23.0: 6166,
+         24.0: 8062,
+         25.0: 10821,
+         26.0: 11948,
+         27.0: 13061,
+         28.0: 13456,
+         29.0: 13400,
+         30.0: 13698,
+         31.0: 13324,
+         32.0: 12710,
+         33.0: 11981,
+         34.0: 10650,
+         35.0: 10539,
+         36.0: 8858,
+         37.0: 7876,
+         38.0: 7215,
+         39.0: 6451,
+         40.0: 5853,
+         41.0: 5475,
+         42.0: 4834,
+         43.0: 4360,
+         44.0: 4528,
+         45.0: 4643,
+         46.0: 4054,
+         47.0: 3540,
+         48.0: 3087,
+         49.0: 2830,
+         50.0: 3033,
+         51.0: 2822,
+         52.0: 2596,
+         53.0: 2371,
+         54.0: 2176,
+         55.0: 2206,
+         56.0: 1990,
+         57.0: 1955,
+         58.0: 1719,
+         59.0: 1683,
+         60.0: 1534,
+         61.0: 1469,
+         62.0: 1250,
+         63.0: 1236,
+         64.0: 1135,
+         65.0: 1130,
+         66.0: 905,
+         67.0: 833,
+         68.0: 777,
+         69.0: 618,
+         70.0: 564,
+         71.0: 390,
+         72.0: 409,
+         73.0: 310,
+         74.0: 262,
+         75.0: 209,
+         76.0: 150,
+         77.0: 148,
+         78.0: 109,
+         79.0: 108,
+         80.0: 93,
+         81.0: 58,
+         82.0: 55,
+         83.0: 53,
+         84.0: 45,
+         85.0: 64,
+         86.0: 54,
+         87.0: 68,
+         88.0: 28,
+         89.0: 39,
+         90.0: 47,
+         91.0: 27,
+         92.0: 33,
+         93.0: 37,
+         94.0: 33,
+         95.0: 113,
+         96.0: 44,
+         97.0: 22,
+         98.0: 28,
+         99.0: 985})
+</code></pre>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_tt</span><span class="p">[</span><span class="n">df_tt</span><span class="o">.</span><span class="n">language</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div><!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_tt</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="s1">&#39;2a0p72u9mg&#39;</span><span class="p">,</span> <span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="n">Counter</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
+</code></pre></div><pre><code>Counter({'ca': 6,
+         'cs': 49,
+         'da': 75,
+         'de': 977,
+         'el': 30,
+         'en': 265539,
+         'es': 1174,
+         'fi': 20,
+         'fr': 1508,
+         'hr': 2,
+         'hu': 25,
+         'id': 23,
+         'is': 5,
+         'it': 633,
+         'ja': 345,
+         'ko': 1116,
+         'nl': 134,
+         'no': 51,
+         'pl': 75,
+         'pt': 322,
+         'ru': 508,
+         'sv': 176,
+         'th': 28,
+         'tr': 92,
+         'zh': 2634})
+</code></pre>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Replace all -1 with untracked</span>
+<span class="n">df_tt</span><span class="o">.</span><span class="n">first_affiliate_tracked</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">first_affiliate_tracked</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;untracked&#39;</span><span class="p">)</span>
+<span class="n">Counter</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">first_affiliate_tracked</span><span class="p">)</span>
+</code></pre></div><pre><code>Counter({'linked': 62064,
+         'local ops': 69,
+         'marketing': 281,
+         'omg': 54859,
+         'product': 2353,
+         'tracked-other': 6655,
+         'untracked': 149266})
+</code></pre>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># first_browser values with low frequency are changed to &#39;OTHER&#39;</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1">#Threshold for frequency</span>
+<span class="n">browser</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">first_browser</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="bp">True</span><span class="p">)))</span>
+<span class="n">df_tt</span><span class="o">.</span><span class="n">first_browser</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">first_browser</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;OTHER&#39;</span> <span class="k">if</span> <span class="n">browser</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">freq</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+<span class="c1">#Replace -1 with Other</span>
+<span class="n">df_tt</span><span class="o">.</span><span class="n">first_browser</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">first_browser</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;OTHER&#39;</span><span class="p">)</span>
+<span class="n">Counter</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">first_browser</span><span class="p">)</span>
+</code></pre></div><pre><code>Counter({'AOL Explorer': 254,
+         'Android Browser': 1577,
+         'Chrome': 78671,
+         'Chrome Mobile': 3186,
+         'Firefox': 38665,
+         'IE': 24744,
+         'IE Mobile': 118,
+         'Mobile Safari': 29636,
+         'OTHER': 44994,
+         'Opera': 228,
+         'Safari': 53302,
+         'Silk': 172})
+</code></pre>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># date_account_created </span>
+<span class="c1"># (Computing year, month, day, week_number, weekday)</span>
+<span class="n">dac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">date_account_created</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">))))</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;dac_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dac</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;dac_m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dac</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;dac_d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dac</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">dac_dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dac</span><span class="p">]</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;dac_wn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">isocalendar</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dac_dates</span><span class="p">])</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;dac_w&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dac_dates</span><span class="p">])</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># dummy variables</span>
+<span class="n">df_tt_wd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">dac_w</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;dac_w&#39;</span><span class="p">)</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;date_account_created&#39;</span><span class="p">,</span> <span class="s1">&#39;dac_w&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">df_tt</span><span class="p">,</span> <span class="n">df_tt_wd</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_tt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#timestamp_first_active</span>
+<span class="c1">#(Computing year, month, day, hour, week_number, weekday)</span>
+<span class="n">tfa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">timestamp_first_active</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">12</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">14</span><span class="p">]])))</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;tfa_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tfa</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;tfa_m&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tfa</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;tfa_d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tfa</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;tfa_h&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tfa</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">tfa_dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tfa</span><span class="p">]</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;tfa_wn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">isocalendar</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">tfa_dates</span><span class="p">])</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;tfa_w&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">tfa_dates</span><span class="p">])</span>
+<span class="n">df_tt_wd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">tfa_w</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;tfa_w&#39;</span><span class="p">)</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;timestamp_first_active&#39;</span><span class="p">,</span> <span class="s1">&#39;tfa_w&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">df_tt</span><span class="p">,</span> <span class="n">df_tt_wd</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_tt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#timespans between dates: account created day and timestamp_first_active</span>
+<span class="c1">#(Computing absolute number of seconds of difference between dates, sign of the difference)</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;dac_tfa_secs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="nb">abs</span><span class="p">((</span><span class="n">dac_dates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">tfa_dates</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dac_dates</span><span class="p">))])</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;sig_dac_tfa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">((</span><span class="n">dac_dates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">tfa_dates</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dac_dates</span><span class="p">))])</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#Comptute seasons from dates</span>
+<span class="c1">#(Computing the season for the two dates)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="mi">2000</span> <span class="c1"># dummy leap year to allow input X-02-29 (leap day)</span>
+<span class="n">seasons</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">),</span>  <span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">))),</span>  <span class="c1">#&#39;winter&#39;</span>
+           <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>  <span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span> <span class="mi">20</span><span class="p">))),</span>  <span class="c1">#&#39;spring&#39;</span>
+           <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>  <span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">22</span><span class="p">))),</span>  <span class="c1">#&#39;summer&#39;</span>
+           <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span>  <span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">20</span><span class="p">))),</span>  <span class="c1">#&#39;autumn&#39;</span>
+           <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>  <span class="n">date</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)))]</span>  <span class="c1">#&#39;winter&#39;</span>
+<span class="k">def</span> <span class="nf">get_season</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">season</span> <span class="k">for</span> <span class="n">season</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span> <span class="ow">in</span> <span class="n">seasons</span>
+                <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">dt</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">)</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;season_dac&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">get_season</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">dac_dates</span><span class="p">])</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;season_tfa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">get_season</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">tfa_dates</span><span class="p">])</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df_tt</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#AgeRange</span>
+<span class="c1">#(One-hot encoding of the edge according these intervals)</span>
+<span class="n">interv</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">get_interv_value</span><span class="p">(</span><span class="n">age</span><span class="p">):</span>
+    <span class="n">iv</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">interv</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="n">interv</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="n">iv</span> <span class="o">=</span> <span class="n">i</span> 
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">iv</span>
+<span class="n">df_tt</span><span class="p">[</span><span class="s1">&#39;age_interv&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_interv_value</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">df_tt_ai</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df_tt</span><span class="o">.</span><span class="n">age_interv</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;age_interv&#39;</span><span class="p">)</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;age_interv&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_tt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">df_tt</span><span class="p">,</span> <span class="n">df_tt_ai</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#One-hot-encoding features</span>
+<span class="n">ohe_feats</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;signup_method&#39;</span><span class="p">,</span> <span class="s1">&#39;signup_flow&#39;</span><span class="p">,</span> <span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliate_channel&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliate_provider&#39;</span><span class="p">,</span> <span class="s1">&#39;first_affiliate_tracked&#39;</span><span class="p">,</span> <span class="s1">&#39;signup_app&#39;</span><span class="p">,</span> <span class="s1">&#39;first_device_type&#39;</span><span class="p">,</span> <span class="s1">&#39;first_browser&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">ohe_feats</span><span class="p">:</span>
+    <span class="n">df_tt_dummy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df_tt</span><span class="p">[</span><span class="n">f</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">df_tt</span> <span class="o">=</span> <span class="n">df_tt</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">f</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df_tt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">df_tt</span><span class="p">,</span> <span class="n">df_tt_dummy</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">X_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;X_train.csv&#34;</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;X_test.csv&#34;</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;y_train.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;y_test.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</code></pre></div><!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">X_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">X_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div><!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --> Return to contents ⇪ <!-- raw HTML omitted --> <!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">precision_recall_curve</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span><span class="n">auc</span><span class="p">,</span><span class="n">average_precision_score</span>
+<span class="n">y_pred_all</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;y_pred_all.csv&#34;</span><span class="p">)</span>
+<span class="n">y_predprob_svm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;y_predprob_svm.csv&#34;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">y_predprob_rf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;y_predprob_rf.csv&#34;</span><span class="p">)</span>
+<span class="n">y_predprob_rf</span> <span class="o">=</span> <span class="n">y_predprob_rf</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">y_predprob_xgb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;y_predprob_xgboost.csv&#34;</span><span class="p">)</span>
+<span class="n">y_predprob_ems</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;y_predprob_ems.csv&#34;</span><span class="p">)</span>
+<span class="n">y_predprob_ems</span> <span class="o">=</span> <span class="n">y_predprob_ems</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;y_test.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#ROC and PR Curve of NDF Category</span>
+<span class="n">y_7_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
+<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span> <span class="n">y_predprob_svm</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="n">fpr1</span><span class="p">,</span> <span class="n">tpr1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span> <span class="n">y_predprob_rf</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="n">fpr2</span><span class="p">,</span> <span class="n">tpr2</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span> <span class="n">y_predprob_xgb</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="n">fpr3</span><span class="p">,</span> <span class="n">tpr3</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span> <span class="n">y_predprob_ems</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="c1">#ROC Curve</span>
+<span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span><span class="n">tpr</span><span class="p">)</span>
+<span class="n">roc_auc1</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr1</span><span class="p">,</span><span class="n">tpr1</span><span class="p">)</span>
+<span class="n">roc_auc2</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr2</span><span class="p">,</span><span class="n">tpr2</span><span class="p">)</span>
+<span class="n">roc_auc3</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr3</span><span class="p">,</span><span class="n">tpr3</span><span class="p">)</span>
+
+<span class="n">width</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">height</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+<span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkorange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SVM (AUC = </span><span class="si">%0.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr1</span><span class="p">,</span> <span class="n">tpr1</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest (AUC = </span><span class="si">%0.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr2</span><span class="p">,</span> <span class="n">tpr2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XGBoost (AUC = </span><span class="si">%0.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr3</span><span class="p">,</span> <span class="n">tpr3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ensemble 3 models (AUC = </span><span class="si">%0.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ROC Curve of NDF Category&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&#34;lower right&#34;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="output_113_0.png" alt="png"></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#ROC and PR Curve of US Category</span>
+<span class="n">y_10_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span>
+<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span> <span class="n">y_predprob_svm</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_svm</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="n">fpr1</span><span class="p">,</span> <span class="n">tpr1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span> <span class="n">y_predprob_rf</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">precision1</span><span class="p">,</span> <span class="n">recall1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_rf</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="n">fpr2</span><span class="p">,</span> <span class="n">tpr2</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span> <span class="n">y_predprob_xgb</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">precision2</span><span class="p">,</span> <span class="n">recall2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_xgb</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="n">fpr3</span><span class="p">,</span> <span class="n">tpr3</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span> <span class="n">y_predprob_ems</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">precision3</span><span class="p">,</span> <span class="n">recall3</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_ems</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="c1">#ROC Curve</span>
+<span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span><span class="n">tpr</span><span class="p">)</span>
+<span class="n">roc_auc1</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr1</span><span class="p">,</span><span class="n">tpr1</span><span class="p">)</span>
+<span class="n">roc_auc2</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr2</span><span class="p">,</span><span class="n">tpr2</span><span class="p">)</span>
+<span class="n">roc_auc3</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr3</span><span class="p">,</span><span class="n">tpr3</span><span class="p">)</span>
+
+<span class="n">width</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">height</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+<span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkorange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SVM (AUC = </span><span class="si">%0.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr1</span><span class="p">,</span> <span class="n">tpr1</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest (AUC = </span><span class="si">%0.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr2</span><span class="p">,</span> <span class="n">tpr2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XGBoost (AUC = </span><span class="si">%0.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr3</span><span class="p">,</span> <span class="n">tpr3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ensemble 3 models (AUC = </span><span class="si">%0.3f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">roc_auc3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ROC Curve of US Category&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&#34;lower right&#34;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="output_114_0.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#PR Curve</span>
+<span class="c1">#PR Curve of NDF Category</span>
+<span class="n">y_7_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
+<span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span><span class="n">y_predprob_svm</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">average_precision</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span> <span class="n">y_predprob_svm</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="n">precision1</span><span class="p">,</span> <span class="n">recall1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span><span class="n">y_predprob_rf</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">average_precision1</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span><span class="n">y_predprob_rf</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="n">precision2</span><span class="p">,</span> <span class="n">recall2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span><span class="n">y_predprob_xgb</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">average_precision2</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span> <span class="n">y_predprob_xgb</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="n">precision3</span><span class="p">,</span> <span class="n">recall3</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span><span class="n">y_predprob_ems</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">average_precision3</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_7_test</span><span class="p">,</span> <span class="n">y_predprob_ems</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">7</span><span class="p">])</span>
+
+<span class="n">width</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">height</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+<span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkorange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SVM AUC = </span><span class="si">%0.3f</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">average_precision</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall1</span><span class="p">,</span> <span class="n">precision1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest AUC = </span><span class="si">%0.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">average_precision1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall2</span><span class="p">,</span> <span class="n">precision2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XGBoost AUC = </span><span class="si">%0.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">average_precision2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall3</span><span class="p">,</span> <span class="n">precision3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ensemble 3 models AUC = </span><span class="si">%0.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">average_precision3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Recall&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Precision&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;PR Curve of NDF Category&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&#34;lower left&#34;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="output_117_0.png" alt="png"></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#PR Curve</span>
+<span class="c1">#PR Curve of US Category</span>
+<span class="n">y_10_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span>
+<span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_svm</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">average_precision</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span> <span class="n">y_predprob_svm</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="n">precision1</span><span class="p">,</span> <span class="n">recall1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_rf</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">average_precision1</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_rf</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="n">precision2</span><span class="p">,</span> <span class="n">recall2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_xgb</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">average_precision2</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span> <span class="n">y_predprob_xgb</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="n">precision3</span><span class="p">,</span> <span class="n">recall3</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span><span class="n">y_predprob_ems</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">average_precision3</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">y_10_test</span><span class="p">,</span> <span class="n">y_predprob_ems</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:,</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="n">width</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">height</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+<span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkorange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;SVM AUC = </span><span class="si">%0.3f</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">average_precision</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall1</span><span class="p">,</span> <span class="n">precision1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest AUC = </span><span class="si">%0.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">average_precision1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall2</span><span class="p">,</span> <span class="n">precision2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XGBoost AUC = </span><span class="si">%0.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">average_precision2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall3</span><span class="p">,</span> <span class="n">precision3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ensemble 3 models AUC = </span><span class="si">%0.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">average_precision3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Recall&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Precision&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;PR Curve of US Category&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&#34;lower left&#34;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><p><img src="output_118_0.png" alt="png"></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pandas_ml</span> <span class="kn">import</span> <span class="n">ConfusionMatrix</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="n">y_pred_ems</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;ensem_label.csv&#34;</span><span class="p">)</span>
+<span class="n">y_pred_ems</span> <span class="o">=</span> <span class="n">y_pred_ems</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">class_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AU&#39;</span><span class="p">,</span><span class="s1">&#39;CA&#39;</span><span class="p">,</span><span class="s1">&#39;DE&#39;</span><span class="p">,</span><span class="s1">&#39;ES&#39;</span><span class="p">,</span><span class="s1">&#39;FR&#39;</span><span class="p">,</span><span class="s1">&#39;GB&#39;</span><span class="p">,</span><span class="s1">&#39;IT&#39;</span><span class="p">,</span><span class="s1">&#39;NDF&#39;</span><span class="p">,</span><span class="s1">&#39;NL&#39;</span><span class="p">,</span><span class="s1">&#39;PT&#39;</span><span class="p">,</span><span class="s1">&#39;US&#39;</span><span class="p">,</span><span class="s1">&#39;Other&#39;</span><span class="p">]</span>
+<span class="c1"># Plot non-normalized confusion matrix</span>
+<span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span>
+                          <span class="n">normalize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                          <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Confusion matrix&#39;</span><span class="p">,</span>
+                          <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    This function prints and plots the confusion matrix.
+</span><span class="s2">    Normalization can be applied by setting `normalize=True`.
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">cm</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Normalized confusion matrix&#34;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Confusion matrix, without normalization&#39;</span><span class="p">)</span>
+
+    <span class="c1">#print(cm)</span>
+
+    <span class="n">thresh</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&#34;center&#34;</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s2">&#34;white&#34;</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">thresh</span> <span class="k">else</span> <span class="s2">&#34;black&#34;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True label&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted label&#39;</span><span class="p">)</span>
+
+<span class="n">width</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">height</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_pred_ems</span><span class="p">,</span><span class="n">y_test</span><span class="p">),</span> <span class="n">classes</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span>
+                      <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Confusion matrix, without normalization&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div><pre><code>Confusion matrix, without normalization
+</code></pre>
+<p><img src="output_121_1.png" alt="png"></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --> Return to contents ⇪ <!-- raw HTML omitted --> <!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --> Return to contents ⇪ <!-- raw HTML omitted --> <!-- raw HTML omitted --></p>
+<p>For the extreme unbalanced data, it is hard for all these models to predict labels for the classes that have low frequencies since the predominat predictions are NDP and USA. Because all these three models have similiar predictions and accuracy, the model ensembling makes no improvement. Precisely, because of the major predictions are NDF and USA, the output of model ensembling will still give these two labels. And what worse, the result of svm and random forest do not predict labels in country except USA and NDF. For the method of majority voting, the result is determinded by  the svm and random forest which will even reduce the proportion of correctly predict label of other countries will reduce.</p>
+<p>Comparing these models, we can also find that random forest is the fastest one since it will parralling automatically since the trees are independent. Xgboost gives the best accuracy and it successfully predict some labels of labels with lower counts since it will consider the error  to adjust the weights of each feature in each step.</p>
+<p>Ref for random forest
+<a href="https://en.wikipedia.org/wiki/Random_forest">https://en.wikipedia.org/wiki/Random_forest</a></p>
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html</a></p>
+
+  </article>
+</section>
+
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=%2fprojects%2fsta208_final_project_report_crazy-add-conclusion%2f&ref_src=twsrc%5Etfw&text=Where%20will%20a%20new%20guest%20book%20their%20first%20airbnb%20travel%20experience%3f Danielle%20Chen&tw_p=tweetbutton&url=%2fprojects%2fsta208_final_project_report_crazy-add-conclusion%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=%2fprojects%2fsta208_final_project_report_crazy-add-conclusion%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=%2fprojects%2fsta208_final_project_report_crazy-add-conclusion%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+      <p>Thanks for checking me out!</p>
+    
+     © 2017    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+      <p id="privateTriggerText">Do you want to know more about me?→<a id="privateTrigger">Click!</a></p>
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=%2fprojects%2fsta208_final_project_report_crazy-add-conclusion%2f&ref_src=twsrc%5Etfw&text=Where%20will%20a%20new%20guest%20book%20their%20first%20airbnb%20travel%20experience%3f Danielle%20Chen&tw_p=tweetbutton&url=%2fprojects%2fsta208_final_project_report_crazy-add-conclusion%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=%2fprojects%2fsta208_final_project_report_crazy-add-conclusion%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=%2fprojects%2fsta208_final_project_report_crazy-add-conclusion%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
+    </main>
+
+    
+
+  <script src="/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text("Thank You! Please share it if you like it→");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Danielle Chen">
+    <meta name="description" content="/">
+    <meta name="keywords" content="Data Analyst, Chemist, Foodie, Data Scientist">
+    <meta name="private-inner" content="I was also a chemist for 6 years. My favoriate street food is Jianbingguozi - Check out the recipe in my blog :)">
+
+    <meta property="og:site_name" content="Danielle Chen">
+    <meta property="og:title" content="
+  Survival Analysis of Randomized Placebo-controlled Trial of HIV-1 disease - Danielle Chen
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/posts/2017-05-04-survival-analysis/">
+    <meta property="og:image" content="/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="/posts/2017-05-04-survival-analysis/">
+    <meta name="twitter:image" content="/">
+
+    <base href="/posts/2017-05-04-survival-analysis/">
+    <title>
+  Survival Analysis of Randomized Placebo-controlled Trial of HIV-1 disease - Danielle Chen
+</title>
+
+    <link rel="canonical" href="/posts/2017-05-04-survival-analysis/">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Danielle Chen">
+      <link href="/index.xml" rel="feed" type="application/rss+xml" title="Danielle Chen" />
+    
+
+    <meta name="generator" content="Hugo 0.72.0" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Danielle Chen</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/about">About</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/posts">Posts</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/projects">Projects</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">Survival Analysis of Randomized Placebo-controlled Trial of HIV-1 disease</h1>
+      <h2 class="date">May 4, 2017</h2>
+
+      
+    </header>
+
+    
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/rmarkdown-libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="/rmarkdown-libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="/rmarkdown-libs/bootstrap/shim/respond.min.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/formattable_widget-binding/formattable_widget.js"></script>
+
+
+<div id="tldr" class="section level2">
+<h2>1.TL;DR</h2>
+<p>In this analysis, survival Cox-ph model shows that portential risk factors for HIV-1 includes whether or not patients receive previous treatments (tx), patients’ ability to tolerate chemotherapy (karnof) and patient’s baseline cd4 counts (cd4). Exploratory analysis on mean, median survival time for HIV patients and non patients were compared before performing the model. This is the analysis I did when I took Survival Analysis course (BST 222) at UC Davis.</p>
+</div>
+<div id="introduction" class="section level2">
+<h2>2.Introduction</h2>
+<p>HIV (human immunodeficiency virus) is a virus which attacks human immune system. People can get infected through the transfer of blood, breast milk, etc. Between the two types of HIV, HIV-1 is more virulent, which can cause infections globally. Zidovudine was the first drug approved by FDA for treatment of HIV infection. However, the survival benefit of the zidovudine-monotherapy only lasts for several months. In the late 1990s, people found that HIV- protease inhibitor could prevent the maturation of virions. Therefore, researchers started to try combination therapy of three drugs which includes a potent HIV-protease inhibitor indinavir (IDV) and two nucleoside analogues lamivudine (3TC) and zidovudine (ZDV) or stravudine (d4T). The goal of this analysis is to build a Cox-ph model and to compare the survival time with or without IDV using the AIDs clinical trial group study 320 data. The descriptions of the data are in Appendix I. The data is a record of 1151 HIV-I patients.</p>
+</div>
+<div id="methods-and-results" class="section level2">
+<h2>3.Methods and Results</h2>
+<p>For knowing more about the survival distributions, survival function and hazard function were computed. The data contains 1151 patients who were randomly received one either treatment with IDV or treatment without IDV. The event of interest in this study was patients whose disease progressed to AIDS or death. There are 1055 patients were censored (red dot in Figure <a href="#fig:figure1">1</a>) and 96 patients were non-censored.</p>
+<div class="figure" style="text-align: center"><span id="fig:figure1"></span>
+<img src="/posts/2017-05-04-survival-analysis_files/figure-html/figure1-1.png" alt="An overview of our data." width="768" />
+<p class="caption">
+Figure 1: An overview of our data.
+</p>
+</div>
+<div id="a.-survival-function" class="section level3">
+<h3>a. Survival function</h3>
+<p>There are two ways to calculate the survival functions. One is to use non-parametric estimator Kaplan-Meier. Another one is to make parametric assumptions and calculate the survival function based on the assumptions, ex: event time follows exponential, Weibull, Gamma, etc.
+<br></p>
+<div id="a1.-kaplan-meier-nonparametric" class="section level4">
+<h4>a1. Kaplan-Meier (nonparametric)</h4>
+<p>Figure <a href="#fig:figure2">2</a> top left shows the estimated survival function with 95% confidence interval band for 1151 patients. Figure <a href="#fig:figure2">2</a> top right shows the estimated survival functions separately for treatment group (with IDV) and control group (without IDV). We can see that the proportion surviving of treatment group is longer than the control group. Figure <a href="#fig:figure2">2</a> bottom left shows the estimated survival functions for sex. The two survival functions cross each other, which implies their hazards functions are not proportional. Overall, the number of females survive are larger than male. Figure <a href="#fig:figure2">2</a> bottom right shows the estimated survival for CD4 groups. We can see that 95% of people with more CD4 cell counts at screening still survive at the end of study. That is because CD4 is an essential part of the human immune system. People who have more CD4 have stronger immune system before doing any treatments. After treatments, the CD4 cell count for all patients increase. So the patients with more CD4 still have stronger defense against virus.</p>
+<div class="figure" style="text-align: center"><span id="fig:figure2"></span>
+<img src="/posts/2017-05-04-survival-analysis_files/figure-html/figure2-1.png" alt="The Kaplan-Meier estimate of survival functions for different groups" width="960" />
+<p class="caption">
+Figure 2: The Kaplan-Meier estimate of survival functions for different groups
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="a2.-assume-exponential-distribution-a-parametric-approach" class="section level4">
+<h4>a2. Assume exponential distribution, a parametric approach</h4>
+If we assume the event time follows exponential distribution, the hazard function and survival function are shown as follows.
+<div class="figure" style="text-align: center"><span id="fig:figure3"></span>
+<img src="/posts/2017-05-04-survival-analysis_files/figure-html/figure3-1.png" alt="The fitted survival functions for the entire population" width="576" />
+<p class="caption">
+Figure 3: The fitted survival functions for the entire population
+</p>
+</div>
+<p><br></p>
+</div>
+</div>
+<div id="b.-mean-and-median-survival" class="section level3">
+<h3>b. Mean and Median Survival</h3>
+<p>The mean survival is the expected value of survival time. The median survival time is defined as the time survival probably is 0.5. The expected mean survival time calculate using Kaplan Meier surviving function is 340.03 with 2.38 standard error. Since the minimum of survival probability is 0.9, it is not possible to reach 0.5 based on our data (Figure 1 topleft). The estimation for median is not available.</p>
+<pre class="r"><code>S1 = Surv(AIDs$time, AIDs$censor)
+fit1 = survfit(Surv(AIDs$time, AIDs$censor)~1, conf.type = &quot;log-log&quot;)
+print(fit1, print.rmean=TRUE)</code></pre>
+<pre><code>## Call: survfit(formula = Surv(AIDs$time, AIDs$censor) ~ 1, conf.type = &quot;log-log&quot;)
+## 
+##          n     events     *rmean *se(rmean)     median    0.95LCL    0.95UCL 
+##    1151.00      96.00     340.03       2.38         NA         NA         NA 
+##     * restricted mean with upper limit =  364</code></pre>
+<p><br></p>
+</div>
+<div id="c.-compare-two-models" class="section level3">
+<h3>c. Compare two models</h3>
+<p>From Figure <a href="#fig:figure4">4</a>, we can see there is a difference between treatment group (with IDX) and the control group (without IDX). However, we should compute a test statistic from the observed data to see if they are statistically different.</p>
+<div class="figure" style="text-align: center"><span id="fig:figure4"></span>
+<img src="/posts/2017-05-04-survival-analysis_files/figure-html/figure4-1.png" alt="The Nelson-Estimate for accumulative hazard based on two treatments" width="672" />
+<p class="caption">
+Figure 4: The Nelson-Estimate for accumulative hazard based on two treatments
+</p>
+</div>
+<p>The sum of those chi-square statistics is 24.47421. And this follows <span class="math inline">\(\chi^2_7\)</span>. The critical value for
+<span class="math inline">\(\chi^2_7(0.95) = 14.06714\)</span>. The p-value is 0.00094. That means we should reject the null hypothesis and conclude that there is significant difference in survival function/accumulative hazard function between control and treatment group at 0.05 significance level.</p>
+<div id="htmlwidget-1" class="formattable_widget html-widget" style="width:100%;height:480px;" width="100%" height="480"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"html":"<table class=\"table table-condensed\">\n <thead>\n  <tr>\n   <th style=\"text-align:left;\">   <\/th>\n   <th style=\"text-align:right;\"> 100 <\/th>\n   <th style=\"text-align:right;\"> 120 <\/th>\n   <th style=\"text-align:right;\"> 150 <\/th>\n   <th style=\"text-align:right;\"> 200 <\/th>\n   <th style=\"text-align:right;\"> 235 <\/th>\n   <th style=\"text-align:right;\"> 260 <\/th>\n   <th style=\"text-align:right;\"> 400 <\/th>\n  <\/tr>\n <\/thead>\n<tbody>\n  <tr>\n   <td style=\"text-align:left;\"> Nelson_Diff <\/td>\n   <td style=\"text-align:right;\"> 0.0170 <\/td>\n   <td style=\"text-align:right;\"> 0.0065 <\/td>\n   <td style=\"text-align:right;\"> 0.0111 <\/td>\n   <td style=\"text-align:right;\"> 0.0245 <\/td>\n   <td style=\"text-align:right;\"> 0.0120 <\/td>\n   <td style=\"text-align:right;\"> 0.0010 <\/td>\n   <td style=\"text-align:right;\"> -0.0020 <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Variance <\/td>\n   <td style=\"text-align:right;\"> 0.0002 <\/td>\n   <td style=\"text-align:right;\"> 0.0004 <\/td>\n   <td style=\"text-align:right;\"> 0.0006 <\/td>\n   <td style=\"text-align:right;\"> 0.0010 <\/td>\n   <td style=\"text-align:right;\"> 0.0013 <\/td>\n   <td style=\"text-align:right;\"> 0.0018 <\/td>\n   <td style=\"text-align:right;\"> 0.0023 <\/td>\n  <\/tr>\n  <tr>\n   <td style=\"text-align:left;\"> Chi-square statistics <\/td>\n   <td style=\"text-align:right;\"> 1.7679 <\/td>\n   <td style=\"text-align:right;\"> 0.1135 <\/td>\n   <td style=\"text-align:right;\"> 0.1932 <\/td>\n   <td style=\"text-align:right;\"> 0.6254 <\/td>\n   <td style=\"text-align:right;\"> 0.1064 <\/td>\n   <td style=\"text-align:right;\"> 0.0006 <\/td>\n   <td style=\"text-align:right;\"> 0.0017 <\/td>\n  <\/tr>\n<\/tbody>\n<\/table>"},"evals":[],"jsHooks":[]}</script>
+<p><br></p>
+</div>
+<div id="d.-coxph-model" class="section level3">
+<h3>d. COXPH model</h3>
+<p>In order to learn more of the potential risk factors for HIV-1, an initial Cox proportional hazards model is built.</p>
+<p>A description of each variable, including description of some key values, is given below.</p>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="34%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Description</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Time</td>
+<td>Time to AIDS diagnosis or death</td>
+<td>Days</td>
+</tr>
+<tr class="even">
+<td>Censor</td>
+<td>Event indicator for AIDS defining <br/>diagnosis or death</td>
+<td>1 = AIDS defining diagnosis or death <br/> 0 = Otherwise</td>
+</tr>
+<tr class="odd">
+<td>Tx</td>
+<td>Treatment indicator <br/> diagnosis or death</td>
+<td>1 = Treatment includes IDV <br/> 0 = Control group (treatment regime without IDV)</td>
+</tr>
+<tr class="even">
+<td>Strat2</td>
+<td>CD4 stratum at screening</td>
+<td>1 = CD4 &gt; 50 <br/> 0 = CD4 &lt;= 50</td>
+</tr>
+<tr class="odd">
+<td>Raceth</td>
+<td>Race/Ethnicity</td>
+<td>1 = White Non-Hispanic <br/> 2 = Black Non-Hispanic <br/> 3 = Hispanic (regardless of race) <br/> 4 = Asian, Pacific Islander <br/> 5 = American Indian, Alaskan Native <br/> 6 = Other/unknown</td>
+</tr>
+<tr class="even">
+<td>Ivdrug</td>
+<td>IV drug use history</td>
+<td>1 = Never <br/> 2 = Currently <br/> 3 = Previously</td>
+</tr>
+<tr class="odd">
+<td>Hemophil</td>
+<td>Hemophiliac</td>
+<td>1 = Yes <br/> 2 = No</td>
+</tr>
+<tr class="even">
+<td>Karnof</td>
+<td>Karnofsky Performance Scale</td>
+<td>100 = Normal <br/> 90 = Normal activity possible <br/> 80 = Normal activity with effort <br/> 70 = Cares for self;</td>
+</tr>
+<tr class="odd">
+<td>cd4</td>
+<td>Baseline CD4 count</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Priorzdv</td>
+<td>Months of prior ZDV use</td>
+<td>Months</td>
+</tr>
+<tr class="odd">
+<td>age</td>
+<td>Age at Enrollment</td>
+<td>Years</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Initial model:
+<span class="math display">\[coxph(Surv(time, censor) = factor(tx) + factor(strat2) + factor(raceth) + factor(ivdrug) + factor(hemophil) + factor(karnof) + cd4 + priorzdv + age, data = AIDs)\]</span></p>
+<p><br></p>
+<div id="d1.-model-selections" class="section level4">
+<h4>d1. Model Selections</h4>
+<p>In this analysis, we only consider first order covariates. There is no interactions or higher order terms in the model. Backward selection is applied to the initial model. Among the potential candidates for elimination from the model, the one with the smallest AIC value is the best.
+The best model from stepAIC command is
+coxph(Surv(time, censor) ~ factor(tx) + factor(ivdrug) + factor(karnof) + cd4 + age, data = AIDs)
+The initial model’s AIC is 1238.92. The AIC of this best model is 1228.99. The summary of this model shows that not all the variables’ coefficients are significant at significant level of 0.05. IVdrug (IV drug use history) is not significant with p-value 0.47 and 0.06 (since there are three levels of ivdrug). Age is also not significant with p-value 0.06.</p>
+<p>Therefore, the final model is updated to be
+<span class="math display">\[coxph(Surv(time, censor) = factor(tx) + factor(karnof) + cd4, data = AIDs)\]</span></p>
+<p><br></p>
+<pre><code>## Call:
+## coxph(formula = Surv(time, censor) ~ factor(tx) + factor(karnof) + 
+##     cd4, data = AIDs)
+## 
+##   n= 1151, number of events= 96 
+## 
+##                        coef exp(coef)  se(coef)      z Pr(&gt;|z|)    
+## factor(tx)1       -0.646524  0.523863  0.215381 -3.002  0.00268 ** 
+## factor(karnof)80  -0.446976  0.639559  0.364834 -1.225  0.22052    
+## factor(karnof)90  -1.142121  0.319141  0.360471 -3.168  0.00153 ** 
+## factor(karnof)100 -1.589237  0.204081  0.404259 -3.931 8.45e-05 ***
+## cd4               -0.014031  0.986066  0.002492 -5.631 1.80e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##                   exp(coef) exp(-coef) lower .95 upper .95
+## factor(tx)1          0.5239      1.909   0.34347    0.7990
+## factor(karnof)80     0.6396      1.564   0.31285    1.3075
+## factor(karnof)90     0.3191      3.133   0.15745    0.6469
+## factor(karnof)100    0.2041      4.900   0.09241    0.4507
+## cd4                  0.9861      1.014   0.98126    0.9909
+## 
+## Concordance= 0.777  (se = 0.023 )
+## Likelihood ratio test= 95.84  on 5 df,   p=&lt;2e-16
+## Wald test            = 79.82  on 5 df,   p=9e-16
+## Score (logrank) test = 97.56  on 5 df,   p=&lt;2e-16</code></pre>
+<p><br></p>
+</div>
+<div id="d2.-model-diagnostics" class="section level4">
+<h4>d2. Model Diagnostics</h4>
+<ol style="list-style-type: lower-alpha">
+<li>Assessing Goodness of fit using Martingale Residuals
+The importance of a good model is its ability to accurately predict the result. Martingale residuals measures the difference between the observed censoring value (0 or 1) and the expected censoring value under a particular Cox model. If the model is correct, the Margingale residuals are distributed with expected value 0. Therefore, by plotting the Martingale residuals of final model against each covariate, we can see to the distribution of those residuals with under different values of covariates in <a href="#fig:figure5">5</a>. For continuous variable cd4, non-parametric LOESS-smoother with its 95% confidence intervals is added to the plot. The residuals versus all covariates are evenly distributed. There are some outliers in each covariate. But it is improved compared to the null model.</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:figure5"></span>
+<img src="/posts/2017-05-04-survival-analysis_files/figure-html/figure5-1.png" alt="The Martingale residuals against each covariate" width="960" />
+<p class="caption">
+Figure 5: The Martingale residuals against each covariate
+</p>
+</div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Checking the proportion hazards assumption
+The proportion hazards are the key assumption in the Cox model. It allows us to cancel out the baseline hazard. If a categorical variable with many levels has a parallel log hazard functions. The proportion hazards assumption holds. Therefore, the log cumulative hazard plots are drawn here <a href="#fig:figure6">6</a>. As you can see, the categorical variables have a parallel log hazard function. Therefore, this assumption holds for this model.</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:figure6"></span>
+<img src="/posts/2017-05-04-survival-analysis_files/figure-html/figure6-1.png" alt="The proportional hazard for treatment and karnofsky performance scale" width="960" />
+<p class="caption">
+Figure 6: The proportional hazard for treatment and karnofsky performance scale
+</p>
+</div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Checking the proportion hazards assumption using Schoenfeld residuals
+Testing the time dependent covariates is equivalent to testing for a non-zero slope in a generalized linear regression of the scaled Schoenfeld residuals on functions of time. Therefore, by using zph function, I can calculate the scaled Schoenfeld residuals directly. A non-zero slop is an indication of a violation of the proportional hazard assumption. As shown in Figure <a href="#fig:figure7">7</a>, almost all the predictors has all zero slope. Therefore, we can keep all the predictors in the model.</li>
+</ol>
+<div class="figure" style="text-align: center"><span id="fig:figure7"></span>
+<img src="/posts/2017-05-04-survival-analysis_files/figure-html/figure7-1.png" alt="Schoenfeld residuals plot" width="960" />
+<p class="caption">
+Figure 7: Schoenfeld residuals plot
+</p>
+</div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Goodness-of-fit test if the model follows exponential (1) distribution
+Then the Kolmogorov-Smirnov test is used to test if the model follows exponential one distribution. And the p-value for this test is &lt; 2.2e-16, meaning it does not follow exponential one distribution.
+<div class="figure" style="text-align: center"><span id="fig:figure8"></span>
+<img src="/posts/2017-05-04-survival-analysis_files/figure-html/figure8-1.png" alt="Check if cumulative hazard follows exponential one" width="576" />
+<p class="caption">
+Figure 8: Check if cumulative hazard follows exponential one
+</p>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+
+  </article>
+
+  <br/>
+
+  
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "daniellechen" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=%2fposts%2f2017-05-04-survival-analysis%2f&ref_src=twsrc%5Etfw&text=Survival%20Analysis%20of%20Randomized%20Placebo-controlled%20Trial%20of%20HIV-1%20disease Danielle%20Chen&tw_p=tweetbutton&url=%2fposts%2f2017-05-04-survival-analysis%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=%2fposts%2f2017-05-04-survival-analysis%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=%2fposts%2f2017-05-04-survival-analysis%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+      <p>Thanks for checking me out!</p>
+    
+     © 2017    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+      <p id="privateTriggerText">Do you want to know more about me?→<a id="privateTrigger">Click!</a></p>
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=%2fposts%2f2017-05-04-survival-analysis%2f&ref_src=twsrc%5Etfw&text=Survival%20Analysis%20of%20Randomized%20Placebo-controlled%20Trial%20of%20HIV-1%20disease Danielle%20Chen&tw_p=tweetbutton&url=%2fposts%2f2017-05-04-survival-analysis%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=%2fposts%2f2017-05-04-survival-analysis%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=%2fposts%2f2017-05-04-survival-analysis%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
+    </main>
+
+    
+
+  <script src="/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text("Thank You! Please share it if you like it→");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>

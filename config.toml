@@ -1,0 +1,85 @@
+baseurl = "http://www.example.com" # Hostname (and path) to the root.
+title = "Danielle Chen" # Site title.
+theme = "coder-portfolio" # Set the theme.
+languagecode = "en" # The site’s language code used to generate RSS.
+defaultcontentlanguage = "en" # The default content language.
+
+paginate = 20 # Default number of pages per page in pagination.
+
+pygmentsstyle = "b2" # Color-theme or style for syntax highlighting.
+pygmentscodefences = true # Enable code fence background highlighting.
+pygmentscodefencesguesssyntax = true # Enable syntax guessing for code fences without specified language.
+pygmentsUseClasses = true # new add
+
+disqusShortname = "daniellechen" # Enable or disable Disqus.
+
+[params] # theme parameters
+    author = "Danielle Chen" # Author's name.
+    info = "Data Analyst, Data Scientist" # Author's job title or info.
+    description = "Danielle Chen's personal website" # Site description.
+    keywords = "Data Analyst, Chemist, Foodie, Data Scientist" # Site keywords.
+    avatarurl = "images/avatar.jpg" # Contain the path of the optionnal avatar in the static folder.
+    privateinner = "I was also a chemist for 6 years. My favorite street food is Jian Bing Guo Zi :)"
+    
+    footercontent = "Thanks for checking me out!" # Add footer content
+    fixedbarContent = "Do you want to know more about me?→" # Add fixedbar content
+    fixedbarContentAfter = "Thank You! Please share it if you like it→" # Add fixedbar content after click
+    
+    # Whether you want to hide copyright and credits in the footer.
+    hideCredits = false
+    hideCopyright = false
+
+    # Custom CSS
+    custom_css = []
+
+    # Alignment of Mobile Menu items
+    itemscentered = true
+
+    # RTL support
+    rtl = false
+
+    # Bottom sns share
+    snsShare = true # new add
+    # Popular sns share
+    # if you want add sns. please message!
+    enableTwitterShare = true  # new add
+    enableFacebookShare = true # new add
+    enableLinkedInShare = true # new add
+
+    thumbnail = "images/tn.png" # default sns thumbnail
+
+    # Multilanguage mode
+    langseparator = "|" # Separates menus from language selectors when site is multilingual.
+
+# Social links
+[[params.social]]
+    name = "LinkedIn"
+    icon = "fab fa-linkedin"
+    weight = 1
+    url = "https://www.linkedin.com/in/danyang-danielle-chen/"
+[[params.social]]
+    name = "Tableau"
+    icon = "fas fa-chart-line"
+    weight = 2
+    url = "https://public.tableau.com/profile/danielle.chen#!/?newProfile=&activeTab=0"
+[[params.social]]
+    name = "Github"
+    icon = "fab fa-github"
+    weight = 3
+    url = "https://github.com/danielleyang"
+
+
+# Menu links
+[[menu.main]]
+    name = "About"
+    weight = 1
+    url  = "about"
+[[menu.main]]
+    name = "Projects"
+    weight = 2
+    url = "projects"
+[[menu.main]]
+    name = "Posts"
+    weight = 3
+    url = "posts"
+        

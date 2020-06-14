@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Others on Danielle Chen</title>
+    <link>/other/</link>
+    <description>Recent content in Others on Danielle Chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 04 May 2017 17:44:03 -0700</lastBuildDate>
+    
+	<atom:link href="/other/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Survival Analysis of Randomized Placebo-controlled Trial of HIV-1 disease</title>
+      <link>/other/2017-05-04-survival-analysis/</link>
+      <pubDate>Thu, 04 May 2017 17:44:03 -0700</pubDate>
+      
+      <guid>/other/2017-05-04-survival-analysis/</guid>
+      <description>1.TL;DR In this analysis, survival Cox-ph model shows that portential risk factors for HIV-1 includes whether or not patients receive previous treatments (tx), patients’ ability to tolerate chemotherapy (karnof) and patient’s baseline cd4 counts (cd4). Exploratory analysis on mean, median survival time for HIV patients and non patients were compared before performing the model. This is the analysis I did when I took Survival Analysis course (BST 222) at UC Davis.</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>/other/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/other/projects/</guid>
+      <description>Portfolio Demo  Coder Portfolio This theme is created based on hugo-coder.
+I made it possible to tell yourself more by my change.
+   </description>
+    </item>
+    
+  </channel>
+</rss>

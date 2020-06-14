@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Danielle Chen</title>
+    <link>/projects/</link>
+    <description>Recent content in Projects on Danielle Chen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 04 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Where will a new guest book their first Airbnb travel?</title>
+      <link>/projects/2017-05-04/</link>
+      <pubDate>Thu, 04 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/2017-05-04/</guid>
+      <description>TL;DR In this project, we use an Airbnb new users booking dataset to predict the users’ country destination. The dataset come from a previous Kaggle competition. We tried SVM, Random forest, and Xgboost separately and an ensembled model utilizing all three models. XGBoost performed the best. The accuracy rate is 71%.
+ ✈Introduction Airbnb enables people to lease or rent short-term lodging including vacation rentals, apartment rentals, homestays, hostel beds, or hotel rooms.</description>
+    </item>
+    
+    <item>
+      <title>Survival Analysis of Randomized Placebo-controlled Trial of HIV-1 disease</title>
+      <link>/projects/2017-01-04-survival-analysis/</link>
+      <pubDate>Wed, 04 Jan 2017 17:44:03 -0700</pubDate>
+      
+      <guid>/projects/2017-01-04-survival-analysis/</guid>
+      <description>1.TL;DR In this analysis, survival Cox-ph model shows that portential risk factors for HIV-1 includes whether or not patients receive previous treatments (tx), patients’ ability to tolerate chemotherapy (karnof) and patient’s baseline cd4 counts (cd4). Exploratory analysis on mean, median survival time for HIV patients and non patients were compared before performing the model. This is the analysis I did when I took Survival Analysis course (BST 222) at UC Davis.</description>
+    </item>
+    
+  </channel>
+</rss>

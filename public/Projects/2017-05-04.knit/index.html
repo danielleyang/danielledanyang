@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Danielle Chen">
+    <meta name="description" content="/">
+    <meta name="keywords" content="Data Analyst, Chemist, Foodie, Data Scientist">
+    <meta name="private-inner" content="I was also a chemist for 6 years. My favorite street food is Jian Bing Guo Zi :)">
+
+    <meta property="og:site_name" content="Danielle Chen">
+    <meta property="og:title" content="
+  Where will a new guest book their first Airbnb travel? - Danielle Chen
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/projects/2017-05-04.knit/">
+    <meta property="og:image" content="/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="/projects/2017-05-04.knit/">
+    <meta name="twitter:image" content="/">
+
+    <base href="/projects/2017-05-04.knit/">
+    <title>
+  Where will a new guest book their first Airbnb travel? - Danielle Chen
+</title>
+
+    <link rel="canonical" href="/projects/2017-05-04.knit/">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Danielle Chen">
+      <link href="/index.xml" rel="feed" type="application/rss+xml" title="Danielle Chen" />
+    
+
+    <meta name="generator" content="Hugo 0.72.0" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">Danielle Chen</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/about">About</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/projects">Projects</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="/posts">Posts</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>Where will a new guest book their first Airbnb travel?</h1>
+    </header>
+
+    <h2 id="tldr">TL;DR</h2>
+<p>In this project, we use an Airbnb new users booking dataset to predict the users’ country destination. The dataset come from a previous [Kaggle competition](<a href="https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings/data">https://www.kaggle.com/c/airbnb-recruiting-new-user-bookings/data</a> Airbnb). We tried SVM, Random forest, and Xgboost separately and an ensembled model utilizing all three models. XGBoost performed the best. The accuracy rate is 71%.</p>
+<h2 id="9992introduction">✈Introduction</h2>
+<p>Airbnb enables people to lease or rent short-term lodging including vacation rentals, apartment rentals, homestays, hostel beds, or hotel rooms. Since 2008, Airbnb has 3,000,000 lodging listings in 65,000 cities and 191 countries, serving more than 60 million users. Analyzing new online user behavior is valuable for generating user specific recommendations, improving the booking success rate and customer retention rate. In this project, we will use the user session data provided by Airbnb to predict user&rsquo;s booking destination. There are 11 unique destination counties in the dataset. We will use user&rsquo;s profile information (such as gender, age, account created date etc) and user&rsquo;s session data (such as action, action type, etc) to classify the destination country.</p>
+<h3 id="datasets">Datasets</h3>
+<p>There are 3 important datasets provided by Airbnb: training, test and session datasets. In the training dataset, there are <!-- raw HTML omitted -->213451 <!-- raw HTML omitted -->unique user ids; In the test dataset, there are <!-- raw HTML omitted -->62096<!-- raw HTML omitted --> unique user ids; In thie sessions dataset, there are <!-- raw HTML omitted -->135484<!-- raw HTML omitted --> unique user ids; 71815 (34.58%) users in the training datasets have data in the session; 61668 (99.31%) users in the test datasets have data in the session. You can see it from the Venn diagram shown below. There are no duplicated IDs in test and training datasets. The labels for the testing data is unknown. The performance of the model on test dataset can only be assessed through kaggle scoring metrics. For our learning purpose, we decide to <!-- raw HTML omitted -->use training dataset only<!-- raw HTML omitted --> in this project.</p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="tools-and-packages-used">Tools and Packages used</h3>
+<ul>
+<li><strong><!-- raw HTML omitted -->Data Munging<!-- raw HTML omitted --></strong> : pandas, numpy</li>
+<li><strong><!-- raw HTML omitted -->Machine Learning<!-- raw HTML omitted --></strong> : sklearn</li>
+<li><strong><!-- raw HTML omitted -->Visualization<!-- raw HTML omitted --></strong> : matplotlib, Seaborn, Plotly</li>
+</ul>
+<h2 id="9992exploratory-data-analysis">✈Exploratory Data Analysis</h2>
+<p>There are 73815 users in both session and training datasets. Now, let us explore the data of these 73815 users data!</p>
+<h3 id="missing-variables">Missing Variables</h3>
+<p>A lots of values are recorded as &ndash;unknown&ndash;. Let we replace them with NaN. A lot of users gender, age and first_browser are missing. We will impulate it later in the feature engineering part.
+<!-- raw HTML omitted --></p>
+<h3 id="destination-country-distribution">Destination Country Distribution</h3>
+<p>Most of the users did not book, thus they are marked as NDF(None Destination Found). NDF and US are two dominant categories. The Y distribution is super imbalanced.
+<!-- raw HTML omitted --></p>
+<h3 id="gender">Gender</h3>
+<p>Well balnaced between male and female with female slightly more.</p>
+<p><!-- raw HTML omitted --></p>
+<p>We do not find significant difference between two genders for each destination.</p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="age">Age</h3>
+<p>For the age, there are some extreme values. For example, 2 of them are less than 10 and 721 of them are greater than 100 years old. When we draw the age distribution plot, we would omit them. Most of the users are below 40 years old.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For US, young people prefer to book US houses compared with older group. However, the difference is not very obvious.</p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="sign-up-method">Sign Up Method</h3>
+<ul>
+<li><strong><!-- raw HTML omitted -->basic<!-- raw HTML omitted --></strong> : 55135</li>
+<li><strong><!-- raw HTML omitted -->facebook<!-- raw HTML omitted --></strong> : 18136</li>
+<li><strong><!-- raw HTML omitted -->google<!-- raw HTML omitted --></strong> : 544</li>
+</ul>
+<p>The users use basic sign up method has a little bit higher probability to book the houses. The below shows a list of affilate providers.
+<!-- raw HTML omitted --></p>
+<p>affiliate provider
+<!-- raw HTML omitted --></p>
+<h3 id="account-create-month">Account Create Month</h3>
+<p>The number of new accounts keep growing and we do not find obvious seasonal pattern, although there is a littble drop down from Jan to Feb.
+<!-- raw HTML omitted --></p>
+<h3 id="sessions-related">Sessions Related</h3>
+<p>There are 332 values for action. The most common 10 are shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>The most common action type is</p>
+<p><!-- raw HTML omitted --></p>
+<p>There are 129 values for action details. The most common 10 are shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>We need to clean the nan and -unknown- data later.</p>
+<h2 id="9992feature-engineering">✈Feature Engineering</h2>
+<p>In the feature engineering part, not only training dataset but also testing dataset is used. From our previous exploratory data analysis, age of more than 50% users are missing. Therefore, we will use the age and gender distributions provided by Airbnb to imputate those missing values. Since the age distribution includes users in the training and testing datasets, it is necessary for us to use both. And also, the processed testing dataset in this project can be used in the future if we want to explore more after this class.</p>
+<h3 id="session-dataset">Session Dataset</h3>
+<p>In this session dataset, it has 6 variables, including user id, action (lookup, search results etc), action type (the way they execute that action), action detail(what exactly they lookup, are they viewing results or editing etc), device type (what device they use when they do this action) and secs elapsed (the time they stay in this session). Every time, when users logged in to their account and make actions, their informaiton were recorded. Therefore, each user has more than 1 record. For example, the table shows below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>In this dataset, there are 365 action values. We group by the action and count each action&rsquo;s frequency. The average number of count is 29214. We decide to change <!-- raw HTML omitted -->action values with less than 100 frequency to &lsquo;OTHER&rsquo;.<!-- raw HTML omitted --> The resulted dataset has 230 action values.</p>
+<p>In order to merge with training dataset, we need to genearate one record for each user id. Therefore, an important step in this feature engineering is to extract useful statistics from session data and create a new dataset which includes one row for each user.</p>
+<p>First, we group by user&rsquo;s id and check the number of actions he/she has done. And then, we are transforming the action, action_type, action_detail, device_type, and section elapsed variables from <!-- raw HTML omitted --> long to wide format <!-- raw HTML omitted -->.</p>
+<p>Now, we are taking action as a example to show how the transformation process works. First, we sort the action values based on their count descendingly. Action Show has 2768278 rows. It is ranked as the first and its index is 230. You can check the details below. These action values are transformed as the panda dataframe column. Therefore, we transform the dataset from long to wide form. Instead of having one column to show action, we have 231 columns now. The rank index plus one is its column name. Therefore, columns c_1 to c_231 are the one-hot-encoding columns for action. Afte that, columns c_232 to c_234 are the number of unique actions this user did, the mean count of these actions and the standard deviation.</p>
+<p>After transformation, here is a list of columns decriptions and an example of the dataframe.</p>
+<ul>
+<li>c_1 to c_234: 231 unique action values + # of unique action values for each user + (mean + std) of the count</li>
+<li>c_235 to c_393: 156 unique action detail values + # of unique action detail + mean + std</li>
+<li>c_394 to c_407: 11 unique action types + # of unique action type + mean + std</li>
+<li>c_408 to c_418: (1 + log of sum of elapsed time) for each of the 11 unique action types</li>
+<li>c_419 to c_436: 14 device types + # of unique device type + mean + std</li>
+<li>c_437 to c_456: sections elapsed sum + mean + std + median + total mean + 15 time intervals count</li>
+</ul>
+<p><!-- raw HTML omitted --></p>
+<h3 id="train--test-dataset">Train + Test Dataset</h3>
+<p>After dropping the destination variable in the training dataset, we combine the train and test set. There are 275547 records. Within them, 116866 users&rsquo; age are missing. 6085 first_affilate_tracked is missing. We also take a look at the NaN or NAN values. In order to process the dataset easily, <!-- raw HTML omitted --> we replace all missing or unknown values with -1<!-- raw HTML omitted -->. After this step, we can see that the variables which contains missing values are gender, age, language, first_affiliate_tracked, and first_brower.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For <!-- raw HTML omitted -->gender<!-- raw HTML omitted -->, there are 47% missing values. It is difficult to impute gender. The only way we can do is to random guess. Therefore, we decide to leave gender like this.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For <!-- raw HTML omitted -->age<!-- raw HTML omitted -->, if the age is between 14 to 99, we think it is reasonable. Otherwise, if the age is between 1900 to 2000, the user may mistakenly input their birth year into the age. Therefore, we substract that year from 2014. If the age is between 0 and 14, we decide to use 14 as their age. If the age is between 2010 to 2016, the user probably input the current year. Then, we decide to use -1 as their age.</p>
+<p>After that, we find may people aged at 105. It is very strange. Therefore, we set those people&rsquo;s age to -1. For people who are aged above 99 and not equal to 105, their age are changed to be 99. There are 118966 people whose age are missing (equal to -1 in our case). The missing values are imputed based on the known age distribution.</p>
+<p>For <!-- raw HTML omitted -->language<!-- raw HTML omitted -->, there is only one person&rsquo;s langauge is unknown. We decide to use english as his/her language since 96% users speak English. After replacing the language to &lsquo;en&rsquo;, the frequency list of language is shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For <!-- raw HTML omitted -->first_affiliate_tracked<!-- raw HTML omitted --> variable, we decide to categorize all the <!-- raw HTML omitted -->unknown to untracked category<!-- raw HTML omitted -->. The frequency list is shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>For <!-- raw HTML omitted -->first_brower<!-- raw HTML omitted --> variable, we decide to first combine the values with low frequency (&lt;100&gt; to Other. Then, we decide to <!-- raw HTML omitted -->categorize all the unknown to other<!-- raw HTML omitted --> as well. The frequency list is shown below.</p>
+<p><!-- raw HTML omitted --></p>
+<p>After that, we extract more information from user account created date. We find out the year, month, day and calculate in which week they create and on which weekday they create. The weekday information is coded using one-hot-encoding. The reason of doing one-hot-encoding is that many machine learning algorithems (such as linear models, svm, knn etc) cannot handle categorical data. There are two common ways to transform the categorical data. One is to factorize. The other one is to use one-hot-encoding. Factorizing does not help since it does not change the nature of the data. We just use a number to replace the character values. Also, it brings a problem since it imparts an ordinal property to the variable. As this is ordinal characteristic is usually not desired. However, using one-hot-encoding can proper representation of the distinct elements of the variable. It also make easy to fine tune the parameters.</p>
+<p>Also the time spans between the account created day and timestamp_first_active is calculated. The sign of this difference is recorded. The season of the account created and timestamp first active are also calculated. The are coded as 0 Winter, 1 Spring, 2 Summer, and 3 Autumn.</p>
+<p>The final step is to one-hot-encoding for age intervals and all the categorical variables such as gender, signup method etc.</p>
+<p>Finally, the train dataset is joined with session dataset. And the test dataset is joined with session dataset as well. Since we only use the training dataset in this project, I split the training dataset. 20% training dataset is used as test set. The result is used as new training dataset.</p>
+<h4 id="the-datasets-used-in-the-machine-learning-modeling-section-are">The datasets used in the machine learning modeling section are</h4>
+<p>The train dataset contains 59052 users data. The test dataset contains 14763 users data.</p>
+<h2 id="9992-machine-learning-models">✈ Machine Learning Models</h2>
+<h3 id="svm">SVM</h3>
+<p>The SVM (Support Vector Machine) is a well-known supervised learning models for both classification and regression. However, it is mostly used in classification problem and is effective in high dimensional spaces.We use the SVC function of sklearn and the default decision function shape is &lsquo;one_over_one&rsquo; for the multiclassification problem. We try both of the linear and RBF kernel. We split the traning data into new training and testing set to tune the parameters. For the linear kernel SVM, we tune the parameter C and the best one is C=1. For the RBF kernel, we tune C and gamma. The best combination is C=1 and gamma=0.1. To speed the algorithm, I use the MinMaxScaler function of sklearn to scale the data and apply PCA to do the demension reduction. In the end, we only keep 40 components. <!-- raw HTML omitted --> The highest accuracy of the linear kernel is 0.668 when C=10.<!-- raw HTML omitted --> Compared with C=1, the accuracy just increases 0.01%, but the computing time is 4 times as before. To get a balance between the accuracy and computation time, we choose C=1 for the linear kernel SVM. For the RBF kernel, the highest accuracy is 0.677 when C=1 and gamma=0.1. The running time of this RBF kernel(C=1,gamma=0.1) is three times of the linear kernel(C=1). For the final model, we only fit the linear kernel with C=1.</p>
+<h3 id="random-forest">Random Forest</h3>
+<p>Random forests or random decision forests are an ensemble learning method for classification and regression that operate by constructing a multitude of decision trees at training time and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. Random decision forests gives a robust result and avoid overfitting.
+In this model, we tuned two parameters number of trees and max deepth for each tree based on training data. We selected model based on the score for each model. According to 5 folds cross validation, the best model has 400 trees and max depth as 13. The score for this model is 0.68. Then, we apply this model to test data. <!-- raw HTML omitted --> The accuracy for prediction is 0.6862.<!-- raw HTML omitted --></p>
+<h3 id="extreme-gradient-boosting-xgboost">eXtreme Gradient Boosting (XGBoost)</h3>
+<p>XGBoost (eXtreme Gradient Boosting) is an advanced implementation of gradient boosting algorithm. It has great boosting capabilities by ensembling multiple trees together. The advantage of XGBoost includes (1) Regularization: Standard gradient boosting does not have regularization which leads to overfitting. XGBoost is known as &lsquo;regularized boosting&rsquo;; (2)Parallel Processing: The node building and node spliting can be processed parallelly. This lands to an implementation on Hadoop; (3) Handling missing Value; (4) Tree Pruning: Gradient boosting stops pruning a tree when it has a negative loss. However, sometimes, a negative loss may have a positive gain next step. XGBoost optimizes this process.
+At the start, the initial values of the parameters are set up in order to find out the best iteration. The initial values includes: max_depth = 5; learning_rate = 0.1; n_estimators = 10000; objective = multi:softprob (The result contains predicted probability of each data point belonging to each class); random_state = 1 (in case we want to repeat the process); eval_metric = mlogloss (multiclass negative log-likelihood). From this model, the best iteration is 111. For tuning boosting parameters, the learning rate = 0.1, n_estimators = 111, objective = multi:softprob, eval_metric = mlogloss are used. Booster parameters tuned in this models are shown below. The parameters are tuned based on the mlogloss metric and using 5 fold cross validation. <!-- raw HTML omitted --> The best validation accuracy is 0.708. <!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted --></p>
+<h3 id="model-ensemble">Model Ensemble</h3>
+<p>In statistics and machine learning, ensemble methods use multiple learning algorithms to obtain better predictive performance than could be obtained from any of the constituent learning algorithms alone.Unlike a statistical ensemble in statistical mechanics, which is usually infinite, a machine learning ensemble refers only to a concrete finite set of alternative models, but typically allows for much more flexible structure to exist among those alternatives.
+We use majority voting to determine final result. We set weight according to accuracy. Accoding to out three accuracy, we set the weight as 33,34,33 for randomforest, svm and xgboost.</p>
+<h3 id="model-comparision">Model Comparision</h3>
+<h3 id="roc">ROC</h3>
+<p>Area under the curve (AUC) value describes the overall performace of a classifier. Based on the area under the curve values, these 3 models plus the ensembled model classify the destination country NDF better than they do on US. XGBoost performs slightly better than the ensembled model. Random Forest performs almost as good as the ensembled method. The reason of this result is because in the ensemble process. We use a heavier weight on xgboost. This dataset is imbalanced. The major country is US and NDF. It is easier to predict the county as US and NDF. It is difficult to classify other countries. Compared to random forest and svm, xgboost does a better job in predicting this minority. Therefore, in the ensemble process, xgboost&rsquo;s vote is more importance. That is the reason why ensemble model is close to xgboost.</p>
+<p><!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted --></p>
+<h4 id="pr">PR</h4>
+<p>Presion is the (true positive)/(true positive + false postive). And recall is (true positive)/(true positve + false negative). The precision and recall of NDF category is much better than US category. Overall, the result is similar as ROC curve. XGBoost does better than the other 3 models.</p>
+<p><!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted --></p>
+<h4 id="confusion-matrix">Confusion Matrix</h4>
+<p><!-- raw HTML omitted --></p>
+<h2 id="-conclusion">✈ Conclusion</h2>
+<p>For the extreme unbalanced data, it is hard for all these models to predict labels for the classes that have low frequencies since the predominat predictions are NDP and USA. Because all these three models have similiar predictions and accuracy, the model ensembling makes no improvement. Precisely, because of the major predictions are NDF and USA, the output of model ensembling will still give these two labels. And what worse, the result of svm and random forest do not predict labels in country except USA and NDF. For the method of majority voting, the result is determinded by the svm and random forest which will even reduce the proportion of correctly predict label of other countries will reduce.
+Comparing these models, we can also find that random forest is the fastest one since it will parralling automatically since the trees are independent. Xgboost gives the best accuracy and it successfully predict some labels of labels with lower counts since it will consider the error to adjust the weights of each feature in each step.</p>
+
+  </article>
+</section>
+
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=%2fprojects%2f2017-05-04.knit%2f&ref_src=twsrc%5Etfw&text=Where%20will%20a%20new%20guest%20book%20their%20first%20Airbnb%20travel%3f Danielle%20Chen&tw_p=tweetbutton&url=%2fprojects%2f2017-05-04.knit%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=%2fprojects%2f2017-05-04.knit%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=%2fprojects%2f2017-05-04.knit%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+      <p>Thanks for checking me out!</p>
+    
+     © 2017    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+      <p id="privateTriggerText">Do you want to know more about me?→<a id="privateTrigger">Click!</a></p>
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=%2fprojects%2f2017-05-04.knit%2f&ref_src=twsrc%5Etfw&text=Where%20will%20a%20new%20guest%20book%20their%20first%20Airbnb%20travel%3f Danielle%20Chen&tw_p=tweetbutton&url=%2fprojects%2f2017-05-04.knit%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=%2fprojects%2f2017-05-04.knit%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=%2fprojects%2f2017-05-04.knit%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
+    </main>
+
+    
+
+  <script src="/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text("Thank You! Please share it if you like it→");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>
