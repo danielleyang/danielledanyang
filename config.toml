@@ -1,4 +1,4 @@
-baseurl = "https://thirsty-sinoussi-cf142d.netlify.app" # Hostname (and path) to the root.
+baseurl = "https://danyangchen.netlify.app" # Hostname (and path) to the root.
 title = "Danielle Chen" # Site title.
 theme = "coder-portfolio" # Set the theme.
 languagecode = "en" # The site’s language code used to generate RSS.
@@ -78,4 +78,3 @@ disqusShortname = "daniellechen" # Enable or disable Disqus.
     name = "Projects"
     weight = 2
     url = "projects"
-
