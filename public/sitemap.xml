@@ -48,16 +48,6 @@
   </url>
   
   <url>
-    <loc>/projects/2017-05-04.knit/</loc>
-    <lastmod>2017-05-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/projects/2017-05-04.utf8/</loc>
-    <lastmod>2017-05-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/aids/</loc>
     <lastmod>2017-01-04T17:44:03-07:00</lastmod>
   </url>
@@ -85,10 +75,6 @@
   <url>
     <loc>/about/</loc>
     <lastmod>2016-05-05T21:48:51-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/</loc>
   </url>
   
 </urlset>

@@ -78,7 +78,4 @@ disqusShortname = "daniellechen" # Enable or disable Disqus.
     name = "Projects"
     weight = 2
     url = "projects"
-[[menu.main]]
-    name = "Posts"
-    weight = 3
-    url = "posts"
+
